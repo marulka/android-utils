@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/dialogLoginFormContainer"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background_lists"
+	android:orientation="vertical" >
+
+	<TextView
+		android:id="@+id/dialogLoginFormTitleUserName"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/default_margin"
+		android:text="@string/userName"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/text_title" />
+
+	<EditText
+		android:id="@+id/dialogLoginFormEditBoxUserName"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/default_margin"
+		android:ems="10"
+		android:inputType="text" >
+
+		<requestFocus />
+	</EditText>
+
+	<TextView
+		android:id="@+id/dialogLoginFormTitlePasswrd"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/default_margin"
+		android:text="@string/passwrd"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@color/text_title" />
+
+	<EditText
+		android:id="@+id/dialogLoginFormEditBoxPasswrd"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/default_margin"
+		android:ems="10"
+		android:inputType="textPassword" />
+
+	<CheckBox
+		android:id="@+id/dialogLoginFormCheckBoxShowPasswrd"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/default_margin"
+		android:checked="false"
+		android:text="@string/showPasswrd"
+		android:textColor="@color/text_main" />
+
+</LinearLayout>

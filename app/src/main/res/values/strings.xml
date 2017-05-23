@@ -1,0 +1,8 @@
+<resources>
+
+	<string name="app_name">AndroidUtils</string>
+	<string name="userName">User name</string>
+	<string name="passwrd">Password</string>
+	<string name="showPasswrd">Show password</string>
+
+</resources>
