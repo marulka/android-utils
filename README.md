@@ -78,7 +78,7 @@ GNU General Public License, v3.0. See the [LICENSE][12] file for details.
 
 
 [1]: https://github.com/marulka/android-utils/releases
-[2]: https://github.com/marulka/android-utils/blob/1.0.0/documentation.md
+[2]: https://github.com/marulka/android-utils/blob/master/documentation.md
 [3]: https://marulka.github.io/android-utils/
 [4]: https://github.com/marulka/android-utils/releases/tag/1.0.0
 [5]: https://github.com/marulka/android-utils/blob/1.0.0/contributing.md
