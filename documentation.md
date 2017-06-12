@@ -120,4 +120,51 @@ in the LogCat, which increases your chances to spot the issue and to fix this bu
 Debug.setDebugMode(Debug.DEBUG_MODE_ONLY_ERRORS);
 ```
 
+* The **warn()** static method shows a custom Log message as a warning. Also, there will be printed information about the class name and the method, in which the event occurred. Using the setDebugMode() method, you can controll, whether these type of messages will appear in the log, or not. Example:
+
+```java
+if (tableExists) {
+
+	Debug.warn("MyActivity", "The table with the same name already exists.");
+}
+```
+Using two String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlight itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
+```log
+"03-09 19:21:18.320: W/MyActivity(30116): The table with the same name already exists."
+```
+
+* The **wIns()** static method shows Log message for Not Instance Of Object as a warning. Also, there will be printed information about the class name and the method, in which the event occurred.  Using the setDebugMode() method, you can controll, whether these type of messages will appear in the log, or not. Example:
+
+```java
+if (context instanceof Activity) {
+
+	// Implement your code here.
+	
+} else {
+	
+	Debug.wIns("MyFragment", "activity Context", "FragmentActivity", "onResume");
+}
+```
+Using four String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlight itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
+```log
+"03-09 19:21:18.320: W/MyFragment(30116): The activity Context is NOT instance of the FragmentActivity. The onResume method won't proceed forward."
+```
+
+* The **wLength()** static method shows a Warning as a Log message when object has a Zero length. Also, there will be printed information about the class name and the method, in which the event occurred. Using the setDebugMode() method, you can controll, whether these type of messages will appear in the log, or not. Example:
+
+```java
+if (myString.length() > 0) {
+	
+	// Implement your code.
+} else {
+	
+	Debug.wLength("MyActivity", "myString String", "onCreate");
+}
+```
+Using three String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlight itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
+```log
+"03-09 19:21:18.320: W/MyFragment(30116): The activity Context is NOT instance of the FragmentActivity. The onResume method won't proceed forward."
+```
+	
+
 [1]: https://github.com/marulka/android-utils/releases
