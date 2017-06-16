@@ -128,7 +128,7 @@ if (tableExists) {
 	Debug.warn("MyActivity", "The table with the same name already exists.");
 }
 ```
-Using two String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlight itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
+Using two String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlights itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
 ```log
 "03-09 19:21:18.320: W/MyActivity(30116): The table with the same name already exists."
 ```
@@ -161,10 +161,105 @@ if (myString.length() > 0) {
 	Debug.wLength("MyActivity", "myString String", "onCreate");
 }
 ```
-Using three String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlight itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
+Using three String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlights itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
 ```log
-"03-09 19:21:18.320: W/MyFragment(30116): The activity Context is NOT instance of the FragmentActivity. The onResume method won't proceed forward."
+"03-09 19:21:18.320: W/MyActivity(30116): The activity Context is NOT instance of the FragmentActivity. The onResume method won't proceed forward."
 ```
+
+* The **wNull()** static method shows Log message for Null Pointer as a warning. Also, there will be printed information about the class name and the method, in which the event occurred. Using the setDebugMode() method, you can controll, whether these type of messages will appear in the log, or not. Example:
+
+```java
+if (myVariable != null) {
+
+	// Write some code here.
+} else {
 	
+	Debug.wNull("MyActivity", "myVariable Object", "onCereate");
+}
+```
+Using three String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlights itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
+```log
+"03-09 19:21:18.320: W/MyActivity(30116): The myVariable Object is null. The onCreate won't proceed forward."
+```
+
+* The **wSize** static method shows Log message for a Zero size as a warning. Also, there will be printed information about the class name and the method, in which the event occurred. Using the setDebugMode() method, you can controll, whether these type of messages will appear in the log, or not. Example:
+
+```java
+if (myMap.size() > 0) {
+	
+	// Implement some code here.
+} else {
+	
+	Debug.wSize("MyActivity", "myMap Object", "onCreate");
+}
+```
+Using three String parameters, the method logic will print out a debug information as a Warning message in the Android system log. This will makes the problematic point of the code to highlights itself in the LogCat, which increases your chances to spot the issue and to fix this bug much faster. Example:
+```log
+"03-09 19:21:18.320: W/MyActivity(30116): The myMap Object has ZERO size. The onCreate won't proceed forward."
+```
+**DialogFactory.class**
+
+* The **buildCustomContextMenuDialog()** static method builds AlertDialog which shows list of items represented as an ListView parameter. The alert dialog does NOT have any buttons for feedback. Note: You should always call the show() method to pop-up the message on the device screen.
+
+```java
+// String array or List Collection which holds the content lines.
+final String[] arrayOfStrings = new String[] { "First line", "Second line", "Third line" };
+// ListView to holds the custom context menu items.
+ListView listview = new ListView(this.activity);
+// The layout which will be used for each list line.
+int listItemLayout = android.R.layout.simple_list_item_single_choice;
+// The list adapter that will take care of the list items.
+ListAdapter adapter = new ArrayAdapter<String>(this.activity, listItemLayout, arrayOfStrings);
+
+// Add your list adapter to the list view.
+listview.setAdapter(adapter);
+// Implement your logic on item is selected.
+listview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+		// Get the selected item from the String array.
+		String myChoise = arrayOfStrings[position];
+		// Do something with the result, as calling an external method.
+		doAction(myChoise);
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {
+
+		// Implement some code here.
+	}
+});
+
+DialogFactory.buildCustomContextMenuDialog(this.activity, listview).show();
+```
+
+* The **buildInfoDialog()** static method builds AlertDialog which shows only information to the User and has only a neutral button for feedback. Note: You should always call the show() method to pop-up the message on the device screen.
+
+```java
+// The resource ID of this dialog Title.
+int title = R.string.dialogTitle;
+
+// The resource ID of this dialog Message.
+int message = R.string.dialogMessage;
+
+// The resource ID of the neutral button text.
+int neutralButtonName = R.string.ok;
+
+// The listener which will be called when the user presses the button.
+// Put Empty.onClickListener() as a parameter, in case you don't want to
+// implement code (prevents NullPointerException on some platforms).
+OnClickListener listener = new android.content.DialogInterface.OnClickListener() {
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+
+		// Implement your code here.
+	}
+};
+
+DialogFactory.buildInfoDialog(this.activity, title, message, neutralButtonName, listener).show();
+```
 
 [1]: https://github.com/marulka/android-utils/releases
