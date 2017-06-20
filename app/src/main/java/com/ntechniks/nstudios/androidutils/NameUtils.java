@@ -1,6 +1,6 @@
 package com.ntechniks.nstudios.androidutils;
 
-/**
+/*
  * Copyright (C) 2017 Nikola Georgiev
  * 
  * This program is free software: you can redistribute it and/or modify it under
@@ -27,7 +27,7 @@ import android.support.annotation.NonNull;
  * Official Git repository at https://github.com/marulka/android-utils
  * 
  * @author Nikola Georgiev
- * @version 1.0
+ * @version 1.01
  * @since 1.0
  * 
  */
@@ -76,14 +76,12 @@ public class NameUtils {
 
 		if (Check.validString(TAG, "string String", methodName, name)) {
 
-			resultString = Empty.string();
-
 			/*
 			 * If the first char is different than Alphabetic, it will replace
 			 * it with down slash ('_')
 			 */
 			final char firstChar = name.charAt(0);
-			resultString = (!CharUtils.isAsciiAlpha(firstChar)) ? "_" : "";
+			resultString = (!CharUtils.isAsciiAlpha(firstChar)) ? "_" : Empty.string();
 
 			for (int i = 0; i < name.length(); i++) {
 

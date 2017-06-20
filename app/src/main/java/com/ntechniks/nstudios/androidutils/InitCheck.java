@@ -1,6 +1,6 @@
 package com.ntechniks.nstudios.androidutils;
 
-/**
+/*
  * Copyright (C) 2017 Nikola Georgiev
  * 
  * This program is free software: you can redistribute it and/or modify it under
@@ -27,7 +27,7 @@ import android.support.annotation.NonNull;
  * Official Git repository at https://github.com/marulka/android-utils
  * 
  * @author Nikola Georgiev
- * @version 1.03
+ * @version 1.04
  * @since 1.0
  * 
  */
@@ -69,7 +69,7 @@ public class InitCheck {
 		final String method = "comboCheck";
 		boolean hasIncorrectValues = false;
 
-		if (pass(TAG, method, new Object[] { tag, methodName, objects, integers })) {
+		if (pass(TAG, method, tag, methodName, objects, integers )) {
 
 			for (int i = 0; i < integers.length; i++) {
 				hasIncorrectValues |= !Check.positiveInt(tag, "#" + i, methodName, integers[i]);
@@ -100,14 +100,14 @@ public class InitCheck {
 	 * @param methodName
 	 *            {@link String}- The name of the method caller.
 	 * @param objects
-	 *            Object[] - Array of objects which extend the {@link Object},
+	 *            Object... - Array of objects which extend the {@link Object},
 	 *            and will pass through a validation check.
 	 * @return boolean - Returns true if all the variables are valid, including
 	 *         the tag, methodName, and objects parameters, otherwise will
 	 *         returns false.
 	 * @since 1.0
 	 */
-	public static boolean pass(@NonNull String tag, @NonNull String methodName, @NonNull Object[] objects) {
+	public static boolean pass(@NonNull String tag, @NonNull String methodName, Object... objects) {
 
 		final String pass = "pass";
 		boolean hasNull = false;
@@ -115,11 +115,9 @@ public class InitCheck {
 
 		if (Check.notNull(tag, "objects Object[]", methodName, objects)) {
 
-            for (Object object1 : objects) {
+            for (Object object : objects) {
 
                 try {
-
-                    final Object object = object1;
 
                     isNull = checkInstance(tag, methodName, isNull, object);
 

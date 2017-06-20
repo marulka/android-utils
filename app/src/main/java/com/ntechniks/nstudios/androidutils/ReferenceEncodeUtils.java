@@ -1,6 +1,6 @@
 package com.ntechniks.nstudios.androidutils;
 
-/**
+/*
  * Copyright (C) 2017 Nikola Georgiev
  * 
  * This program is free software: you can redistribute it and/or modify it under
@@ -132,8 +132,7 @@ public class ReferenceEncodeUtils {
 
 			try {
 
-				final int endIndex = dividerPos;
-				final String substring = refNum.substring(0, endIndex);
+				final String substring = refNum.substring(0, dividerPos);
 				pageId = Integer.parseInt(substring);
 
 			} catch (final NumberFormatException nfe) {

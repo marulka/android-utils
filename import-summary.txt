@@ -1,0 +1,123 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Risky Project Location:
+-----------------------
+The tools *should* handle project locations in any directory. However,
+due to bugs, placing projects in directories containing spaces in the
+path, or characters like ", ' and &, have had issues. We're working to
+eliminate these bugs, but to save yourself headaches you may want to
+move your project to a location where this is not a problem.
+D:\Android Studio Projects\android-utils
+          -      -                      
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* doc\
+* doc\allclasses-frame.html
+* doc\allclasses-noframe.html
+* doc\com\
+* doc\com\ntechniks\
+* doc\com\ntechniks\nstudios\
+* doc\com\ntechniks\nstudios\androidutils\
+* doc\com\ntechniks\nstudios\androidutils\Check.html
+* doc\com\ntechniks\nstudios\androidutils\Debug.html
+* doc\com\ntechniks\nstudios\androidutils\DialogFactory.html
+* doc\com\ntechniks\nstudios\androidutils\Empty.html
+* doc\com\ntechniks\nstudios\androidutils\GermanLocaleTools.html
+* doc\com\ntechniks\nstudios\androidutils\ImageScaleUtils.html
+* doc\com\ntechniks\nstudios\androidutils\ImageViewUtils.html
+* doc\com\ntechniks\nstudios\androidutils\InitCheck.html
+* doc\com\ntechniks\nstudios\androidutils\NameUtils.html
+* doc\com\ntechniks\nstudios\androidutils\ReferenceEncodeUtils.html
+* doc\com\ntechniks\nstudios\androidutils\StringArraySerializer.html
+* doc\com\ntechniks\nstudios\androidutils\TimeDateUtils.html
+* doc\com\ntechniks\nstudios\androidutils\WaterMarkerFactory.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\
+* doc\com\ntechniks\nstudios\androidutils\class-use\Check.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\Debug.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\DialogFactory.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\Empty.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\GermanLocaleTools.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\ImageScaleUtils.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\ImageViewUtils.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\InitCheck.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\NameUtils.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\ReferenceEncodeUtils.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\StringArraySerializer.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\TimeDateUtils.html
+* doc\com\ntechniks\nstudios\androidutils\class-use\WaterMarkerFactory.html
+* doc\com\ntechniks\nstudios\androidutils\package-frame.html
+* doc\com\ntechniks\nstudios\androidutils\package-summary.html
+* doc\com\ntechniks\nstudios\androidutils\package-tree.html
+* doc\com\ntechniks\nstudios\androidutils\package-use.html
+* doc\constant-values.html
+* doc\deprecated-list.html
+* doc\help-doc.html
+* doc\index-files\
+* doc\index-files\index-1.html
+* doc\index-files\index-10.html
+* doc\index-files\index-11.html
+* doc\index-files\index-12.html
+* doc\index-files\index-13.html
+* doc\index-files\index-14.html
+* doc\index-files\index-15.html
+* doc\index-files\index-16.html
+* doc\index-files\index-17.html
+* doc\index-files\index-2.html
+* doc\index-files\index-3.html
+* doc\index-files\index-4.html
+* doc\index-files\index-5.html
+* doc\index-files\index-6.html
+* doc\index-files\index-7.html
+* doc\index-files\index-8.html
+* doc\index-files\index-9.html
+* doc\index.html
+* doc\overview-tree.html
+* doc\package-list
+* doc\script.js
+* doc\stylesheet.css
+* javadoc.xml
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:25.3.1
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* assets\ => app\src\main\assets
+* lint.xml => app\lint.xml
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

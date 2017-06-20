@@ -1,6 +1,6 @@
 package com.ntechniks.nstudios.androidutils;
 
-/**
+/*
  * Copyright (C) 2017 Nikola Georgiev
  * 
  * This program is free software: you can redistribute it and/or modify it under
@@ -28,20 +28,16 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ntechniks.nstudios.androidutils.R;
-
 /**
  * Official Git repository at https://github.com/marulka/android-utils
  * 
  * @author Nikola Georgiev
- * @version 1.07
+ * @version 1.08
  * @since 1.0
  * 
  */
@@ -342,7 +338,7 @@ public class DialogFactory {
 	 */
 	public static void showToastMessage(@NonNull Context context, @NonNull String message) {
 
-		if (InitCheck.pass(TAG, "showToastMessage", new Object[] { context, message })) {
+		if (InitCheck.pass(TAG, "showToastMessage", context, message )) {
 
 			Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 		}
@@ -402,20 +398,16 @@ public class DialogFactory {
 
 				if (Check.notNull(TAG, "checkBox CheckBox", methodName, checkBox)) {
 
-					checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+					checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-						@Override
-						public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (Check.notNull(TAG, "passwrdField EditText", "onCheckedChanged in " + methodName,
+                                passwrdField)) {
 
-							if (Check.notNull(TAG, "passwrdField EditText", "onCheckedChanged in " + methodName,
-									passwrdField)) {
+                            passwrdField.setTransformationMethod((isChecked) ? null
+                                    : new PasswordTransformationMethod());
 
-								passwrdField.setTransformationMethod((isChecked) ? null
-										: new PasswordTransformationMethod());
-
-							}
-						}
-					});
+                        }
+                    });
 				}
 			}
 		}

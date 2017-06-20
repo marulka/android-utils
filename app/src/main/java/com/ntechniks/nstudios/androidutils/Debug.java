@@ -1,6 +1,6 @@
 package com.ntechniks.nstudios.androidutils;
 
-/**
+/*
  * Copyright (C) 2017 Nikola Georgiev
  * 
  * This program is free software: you can redistribute it and/or modify it under
@@ -24,7 +24,7 @@ import android.util.Log;
  * Official Git repository at https://github.com/marulka/android-utils
  * 
  * @author Nikola Georgiev
- * @version 1.05
+ * @version 1.06
  * @since 1.0
  * 
  */
@@ -186,8 +186,7 @@ public class Debug {
 	 *            thrown.
 	 * @since 1.0
 	 */
-	public static void error(@NonNull String tag, @NonNull String whileDo, @NonNull String methodName,
-			@NonNull Throwable e) {
+	public static void error(@NonNull String tag, @NonNull String whileDo, @NonNull String methodName, Throwable e) {
 
 		if ((sDebugMode == DEBUG_MODE_ONLY_ERRORS) || (sDebugMode != DEBUG_MODE_ALL_OFF)) {
 
@@ -285,6 +284,32 @@ public class Debug {
 			Log.d(tag, debugMsg + " Occurred in the " + methodName + " method.");
 		}
 
+	}
+
+	// =================================================================================================================================
+
+	/**
+	 * Shows a custom Log message as an information. No additional information
+	 * will be shown, just the emitter class name and your message.
+	 *
+	 * <p>
+	 * {@code Output Example: "Your warning message here."}
+	 * </p>
+	 *
+	 * @param tag
+	 *            {@link String} - The name of the caller Class.
+	 * @param info
+	 *            {@link String} - A custom informational message which will be
+	 *            shown.
+	 * @since 1.06
+	 */
+	public static void info(@NonNull String tag, @NonNull String info) {
+
+		if ((sDebugMode != DEBUG_MODE_AT_LEAST_WARNINGS) || (sDebugMode != DEBUG_MODE_ONLY_ERRORS)
+				|| (sDebugMode != DEBUG_MODE_ALL_OFF)) {
+
+			Log.i(tag, info);
+		}
 	}
 
 	// =================================================================================================================================

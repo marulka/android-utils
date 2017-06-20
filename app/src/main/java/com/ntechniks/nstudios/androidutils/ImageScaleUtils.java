@@ -1,6 +1,6 @@
 package com.ntechniks.nstudios.androidutils;
 
-/**
+/*
  * Copyright (C) 2017 Nikola Georgiev
  * 
  * This program is free software: you can redistribute it and/or modify it under
@@ -85,7 +85,7 @@ public class ImageScaleUtils {
 	 */
 	public static float getScaleRatio(@NonNull Rect imageDimens, @NonNull Rect windowDimens) {
 
-		if (InitCheck.pass(TAG, "getScaleRatio", new Object[] { imageDimens, windowDimens })) {
+		if (InitCheck.pass(TAG, "getScaleRatio", imageDimens, windowDimens )) {
 
 			int viewWidth;
 			final int imageWidth = imageDimens.top;
