@@ -30,7 +30,7 @@ import android.support.annotation.NonNull;
  * Official Git repository at https://github.com/marulka/android-utils
  * 
  * @author Nikola Georgiev
- * @version 1.04
+ * @version 1.05
  * @since 1.0
  * 
  */
@@ -340,7 +340,7 @@ public class ReferenceEncodeUtils {
 	 * 
 	 * @param requestCode
 	 *            int - The request code which will be decoded.
-	 * @return Map<String, Integer> - Map with the decoded values. Keys are
+	 * @return {@literal Map<String, Integer>} - Map with the decoded values. Keys are
 	 *         {@link String}s and the values are {@link Integer}s.
 	 * @since 1.0
 	 */

@@ -27,6 +27,15 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'org.apache.commons:commons-lang3:3.5'
     compile files('libs/glide-3.7.0.jar')
+    compile files('libs/support-annotations-25.3.1.jar')
+}
+
+// Java8 not fully supported in library projects yet, https://code.google.com/p/android/issues/detail?id=211386
+// this is a temporary workaround to get at least lambdas compiling
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xbootclasspath/a:" + System.properties.get("java.home") + "/lib/rt.jar"
+    }
 }
 
 task deleteJar(type: Delete) {
@@ -35,25 +44,25 @@ task deleteJar(type: Delete) {
 
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
-    into('libs/')
+    into('build/libs/')
     include('classes.jar')
-    rename('classes.jar', 'android-utils.jar')
+    rename('classes.jar', 'app-android-utils-bin.jar')
 }
 
 createJar.dependsOn(deleteJar, build)
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
+    classifier = 'android-utils-sources'
 }
 
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator)) + configurations.compile
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    classifier = 'android-utils-javadoc'
     from javadoc.destinationDir
 }
 

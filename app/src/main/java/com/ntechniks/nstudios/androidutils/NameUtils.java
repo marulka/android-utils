@@ -27,7 +27,7 @@ import android.support.annotation.NonNull;
  * Official Git repository at https://github.com/marulka/android-utils
  * 
  * @author Nikola Georgiev
- * @version 1.01
+ * @version 1.02
  * @since 1.0
  * 
  */
@@ -59,7 +59,7 @@ public class NameUtils {
 	 * <p>
 	 * List with the chars which are not allowed in the table names and column
 	 * names: {@code @, #, $, %, &, *, -, +, (, ), !, ", ', :, ;, /, ?, ~, `,
-	 * |, , }, =, [, ], <, >, ^, ., ,, \, 'empty space'}.
+	 * |, , }, =, [, ], {@literal <, >}, ^, ., ,, \, 'empty space'}.
 	 * </p>
 	 * 
 	 * @param name
