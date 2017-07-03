@@ -1,5 +1,4 @@
-# android-utils
-Android-Utils v1.0
+#Android-Utils v1.1.0
 
 Every developer needs a tools set which can saves him a lot of time writing a same code blocks and/or checks on and on. One of the common things that you should do, 
 in case you want to have a fail-safe program, is to check each time you call an objects function for a Null Pointer. The NullPointerException is most common mistake 
