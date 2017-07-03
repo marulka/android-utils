@@ -10,6 +10,34 @@ Download
 --------
 You can download a jar from GitHub's [releases page][1].
 
+Or use Gradle:
+
+```gradle
+repositories {
+  mavenCentral() // jcenter() works as well because it pulls from Maven Central
+}
+
+dependencies {
+  compile 'com.ntechniks.nstudios.android-utils:android-utils:1.1.0'
+  compile 'com.android.support:support-v4:26.0.+'
+}
+```
+
+Or Maven:
+
+```xml
+<dependency>
+  <groupId>com.ntechniks.nstudios</groupId>
+  <artifactId>android-utils</artifactId>
+  <version>1.1.0</version>
+</dependency>
+<dependency>
+  <groupId>com.google.android</groupId>
+  <artifactId>support-v4</artifactId>
+  <version>r7</version>
+</dependency>
+```
+
 How to use the adroid-utils?
 --------
 

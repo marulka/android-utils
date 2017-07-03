@@ -1,13 +1,16 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 25
-        versionCode 1
-        versionName '1.0'
+        targetSdkVersion 26
+        versionCode 4
+        versionName '1.1.0'
+        setProperty("archivesBaseName", "android-utils")
     }
     buildTypes {
         release {
@@ -24,10 +27,30 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:25.3.1'
     compile 'org.apache.commons:commons-lang3:3.5'
-    compile files('libs/glide-3.7.0.jar')
-    compile files('libs/support-annotations-25.3.1.jar')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:26.0.+'
+    compile 'com.github.jitpack:gradle-simple:1.0'
+}
+
+// Fixing issue with the android.support.v4 lib working with API26.
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.1'
+            }
+        }
+    }
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    // Fixes problem with javadoc dependencies.
+    classpath = project.files(android.getBootClasspath().join(File.pathSeparator)) + configurations.compile
+    // Excludes the R file from the javadoc.
+    exclude '**/R.html', '**/R.*.html'
 }
 
 // Java8 not fully supported in library projects yet, https://code.google.com/p/android/issues/detail?id=211386
@@ -39,34 +62,122 @@ gradle.projectsEvaluated {
 }
 
 task deleteJar(type: Delete) {
-    delete 'libs/android-utils.jar'
+    delete 'build/libs/android-utils-bin.jar'
 }
 
 task createJar(type: Copy) {
     from('build/intermediates/bundles/release/')
     into('build/libs/')
     include('classes.jar')
-    rename('classes.jar', 'app-android-utils-bin.jar')
+    rename('classes.jar', 'android-utils-bin.jar')
 }
 
 createJar.dependsOn(deleteJar, build)
 
 task sourcesJar(type: Jar) {
+    classifier = 'sources'
     from android.sourceSets.main.java.srcDirs
-    classifier = 'android-utils-sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator)) + configurations.compile
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'android-utils-javadoc'
+    classifier = 'javadoc'
     from javadoc.destinationDir
 }
 
+// Hook them up into the artifacts collection together with the project jar itself.
 artifacts {
     archives javadocJar
     archives sourcesJar
+}
+
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+def getReleaseRepositoryUrl() {
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
+            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+
+def getSnapshotRepositoryUrl() {
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+            : "https://oss.sonatype.org/content/repositories/snapshots/"
+}
+
+def getRepositoryUsername() {
+    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+}
+
+// OSSRH publication
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                pom.groupId = GROUP
+                pom.artifactId = POM_ARTIFACT_ID
+                pom.version = VERSION_NAME
+
+                repository(url: getReleaseRepositoryUrl()) {
+                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                }
+                snapshotRepository(url: getSnapshotRepositoryUrl()) {
+                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                }
+
+                pom.project {
+                    name POM_NAME
+                    packaging POM_PACKAGING
+                    description POM_DESCRIPTION
+                    url POM_URL
+
+                    scm {
+                        url POM_SCM_URL
+                        connection POM_SCM_CONNECTION
+                        developerConnection POM_SCM_DEV_CONNECTION
+                    }
+
+                    licenses {
+                        license {
+                            name POM_LICENCE_NAME
+                            url POM_LICENCE_URL
+                            distribution POM_LICENCE_DIST
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id POM_DEVELOPER_ID
+                            name POM_DEVELOPER_NAME
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Sign the artifact before deployment.
+signing {
+    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+allprojects {
+
+    version = VERSION_NAME
+    group = GROUP
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
 }

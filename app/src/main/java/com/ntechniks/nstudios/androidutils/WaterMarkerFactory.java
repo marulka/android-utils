@@ -28,7 +28,7 @@ import android.support.annotation.NonNull;
  * Official Git repository at https://github.com/marulka/android-utils
  *
  * @author Nikola Georgiev
- * @version 1.01
+ * @version 1.02
  * @since 1.0
  */
 public class WaterMarkerFactory {
@@ -65,7 +65,7 @@ public class WaterMarkerFactory {
         final String methodName = "mark";
         Bitmap result = null;
 
-        if (InitCheck.comboCheck(TAG, methodName, new Object[]{oldImage, watermark}, new int[]{alpha, size})) {
+        if (InitCheck.pass(TAG, methodName, oldImage, watermark, alpha, size)) {
 
             Point location = null;
             final Paint paint = new Paint();
@@ -119,7 +119,7 @@ public class WaterMarkerFactory {
      */
     private static Point getLocation(int width, int height, @NonNull String watermark, int size) {
 
-        if (InitCheck.comboCheck(TAG, "getLocation", new Object[]{watermark}, new int[]{width, height, size})) {
+        if (InitCheck.pass(TAG, "getLocation", watermark, width, height, size)) {
 
             final int length = watermark.length();
 

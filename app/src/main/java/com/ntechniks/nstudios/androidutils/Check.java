@@ -19,6 +19,7 @@ package com.ntechniks.nstudios.androidutils;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
@@ -132,5 +133,31 @@ public class Check {
         }
 
         return false;
+    }
+
+    /**
+     * Checks is a given object is instance of a given class type. In case the object is not instance
+     * of this type, then will print a debug information out in the system log.
+     *
+     * @param tag        {@link String} - The name of the caller Class.
+     * @param obj        {@link Object} - The object, which instance will be checked.
+     * @param classType  {@link Class} - he class type, which the object instance will be compared to.
+     * @param methodName {@link String} - The name of the method caller.
+     * @return boolean - Returns true only if the object is instance of the given class type, otherwise false.
+     */
+    public static boolean instanceOf(@NonNull String tag, @Nullable Object obj, @NonNull Class<?> classType, @NonNull String methodName) {
+
+        boolean isInstanceOf = false;
+
+        if (InitCheck.pass(tag, methodName, obj, classType)) {
+
+            isInstanceOf = classType.isAssignableFrom(obj.getClass());
+
+            if (!isInstanceOf) {
+                Debug.wIns(tag, "obj " + obj.getClass().getSimpleName(), classType.getSimpleName(), methodName);
+            }
+        }
+
+        return isInstanceOf;
     }
 }

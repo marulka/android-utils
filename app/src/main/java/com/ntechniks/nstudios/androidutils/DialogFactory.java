@@ -20,8 +20,10 @@ package com.ntechniks.nstudios.androidutils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.method.PasswordTransformationMethod;
@@ -35,370 +37,449 @@ import android.widget.Toast;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
- * 
+ *
  * @author Nikola Georgiev
- * @version 1.08
+ * @version 1.10
  * @since 1.0
- * 
  */
 public class DialogFactory {
 
-	/**
-	 * The name of the class.
-	 * 
-	 * @since 1.0
-	 */
-	private static final String TAG = "DialogFactory";
+    /**
+     * The name of the class.
+     *
+     * @since 1.0
+     */
+    private static final String TAG = "DialogFactory";
 
-	// =================================================================================================================================
+    // =================================================================================================================================
 
-	/**
-	 * Builds AlertDialog which shows only information to the User and has only
-	 * neutral button for feedback. Note: You should always call the show()
-	 * method to pop-up the message on the device screen.
-	 * 
-	 * @param activity
-	 *            {@link Activity} - The activity which this AlertDialog will be
-	 *            attached to.
-	 * @param title
-	 *            int - The string resource which will be displayed as Title.
-	 * @param message
-	 *            int - The string resource which will be displayed as
-	 *            informational message.
-	 * @param neutralButtonName
-	 *            int - The string resource which will be displayed as neutral
-	 *            button.
-	 * @param listener
-	 *            {@link OnClickListener} - Callback that will be attached as
-	 *            listener, when the neutral button has been pressed.
-	 * @return {@link android.app.AlertDialog.Builder}- The built AlertDialog
-	 *         which should be displayed.
-	 * @since 1.0
-	 */
-	public static AlertDialog.Builder buildInfoDialog(@NonNull Activity activity, @StringRes int title,
-			@StringRes int message, @StringRes int neutralButtonName, @NonNull OnClickListener listener) {
+    /**
+     * Builds AlertDialog which shows only information to the User and has only
+     * neutral button for feedback. Note: You should always call the show()
+     * method to pop-up the message on the device screen.
+     *
+     * @param activity          {@link Activity} - The activity which this AlertDialog will be
+     *                          attached to.
+     * @param title             int - The string resource which will be displayed as Title.
+     * @param message           int - The string resource which will be displayed as
+     *                          informational message.
+     * @param neutralButtonName int - The string resource which will be displayed as neutral
+     *                          button.
+     * @param listener          {@link OnClickListener} - Callback that will be attached as
+     *                          listener, when the neutral button has been pressed.
+     * @return {@link android.app.AlertDialog.Builder}- The built AlertDialog
+     * which should be displayed.
+     * @since 1.0
+     */
+    public static AlertDialog.Builder buildInfoDialog(@NonNull Activity activity, @StringRes int title,
+                                                      @StringRes int message, @StringRes int neutralButtonName, @NonNull OnClickListener listener) {
 
-		AlertDialog.Builder adb = null;
+        AlertDialog.Builder adb = null;
 
-		if (InitCheck.comboCheck(TAG, "buildInfoDialog", new Object[] { activity, listener }, new int[] { title,
-				message, neutralButtonName })) {
+        if (InitCheck.pass(TAG, "buildInfoDialog", activity, listener, title, message, neutralButtonName)) {
 
-			// Initialize Dialog.
-			adb = new AlertDialog.Builder(activity);
+            // Initialize Dialog.
+            adb = new AlertDialog.Builder(activity);
 
-			// Set Dialog parameters.
-			adb.setTitle(title);
-			adb.setMessage(message);
-			adb.setNeutralButton(neutralButtonName, listener);
+            // Set Dialog parameters.
+            adb.setTitle(title);
+            adb.setMessage(message);
+            adb.setNeutralButton(neutralButtonName, listener);
+        }
 
-		}
+        return adb;
+    }
 
-		return adb;
-	}
+    // =================================================================================================================================
 
-	// =================================================================================================================================
+    /**
+     * Builds AlertDialog which shows only information to the User and has only
+     * neutral button for feedback. Note: You should always call the show()
+     * method to pop-up the message on the device screen.
+     *
+     * @param activity          {@link Activity} - The activity, which this AlertDialog will be
+     *                          attached to.
+     * @param title             int - The string resource, which will be displayed as Title.
+     * @param message           int - The string resource, which will be displayed as
+     *                          informational message.
+     * @param neutralButtonName int - The string resource, which will be displayed as neutral
+     *                          button.
+     * @param icon              int - The drawable resource, which will be used to be displayed
+     *                          as an icon next to the message title.
+     * @param listener          {@link OnClickListener} - Callback that will be attached as
+     *                          listener, when the neutral button has been pressed.
+     * @return {@link android.app.AlertDialog.Builder}- The built AlertDialog
+     * which should be displayed.
+     * @since 1.0
+     */
+    public static AlertDialog.Builder buildInfoDialog(@NonNull Activity activity, @StringRes int title,
+                                                      @StringRes int message, @StringRes int neutralButtonName, @DrawableRes int icon,
+                                                      @NonNull OnClickListener listener) {
 
-	/**
-	 * Builds AlertDialog which shows list for selection represented as an
-	 * optional view parameter. The alert dialog has positive and negative
-	 * buttons for feedback. Note: You should always call the show() method to
-	 * pop-up the message on the device screen.
-	 * 
-	 * @param activity
-	 *            {@link Activity} - The activity which this AlertDialog will be
-	 *            attached to.
-	 * @param title
-	 *            int - The string resource which will be displayed as Title.
-	 * @param optionalView
-	 *            {@link View} - The view which will be added to the Dialog
-	 *            under the title.
-	 * @param positiveButtonName
-	 *            int - The string resource which will be displayed as positive
-	 *            button label.
-	 * @param negativeButtonName
-	 *            int - The string resource which will be displayed as negative
-	 *            button label.
-	 * @param negativeListener
-	 *            {@link OnClickListener} - The callback that will be called
-	 *            when the negative button is pressed.
-	 * @param positiveListener
-	 *            {@link OnClickListener} - The callback that will be called
-	 *            when the positive button is pressed.
-	 * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
-	 *         which will be displayed.
-	 * @since 1.0
-	 */
-	public static AlertDialog.Builder buildSelectFromListDialog(@NonNull Activity activity, @StringRes int title,
-			@NonNull View optionalView, @StringRes int positiveButtonName, @StringRes int negativeButtonName,
-			@NonNull OnClickListener negativeListener, @NonNull OnClickListener positiveListener) {
+        AlertDialog.Builder adb = null;
 
-		final AlertDialog.Builder adb = buildPositiveNegativeDialog(activity, title, optionalView, positiveButtonName,
-				negativeButtonName, negativeListener, positiveListener);
+        if (InitCheck.pass(TAG, "buildInfoDialog", activity, listener, title, message, neutralButtonName)) {
 
-		return adb;
-	}
+            // Initialize Dialog.
+            adb = new AlertDialog.Builder(activity);
 
-	// =================================================================================================================================
+            // Set Dialog parameters.
+            adb.setTitle(title);
+            adb.setIcon(icon);
+            adb.setMessage(message);
+            adb.setNeutralButton(neutralButtonName, listener);
+        }
 
-	/**
-	 * Builds AlertDialog which shows list of items represented as an ListView
-	 * parameter. The alert dialog does NOT have any buttons for feedback. Note:
-	 * You should always call the show() method to pop-up the message on the
-	 * device screen.
-	 * 
-	 * @param activity
-	 *            {@link Activity} - The activity which this AlertDialog will be
-	 *            attached to.
-	 * @param listview
-	 *            {@link View} - The ListView which will be used to represent
-	 *            the context items.
-	 * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
-	 *         which will be displayed.
-	 * @since 1.04
-	 */
-	public static AlertDialog.Builder buildCustomContextMenuDialog(@NonNull Activity activity,
-			@NonNull ListView listview) {
+        return adb;
+    }
 
-		AlertDialog.Builder adb = null;
+    // =================================================================================================================================
 
-		if (InitCheck.pass(TAG, "buildSelectFromListDialog", new Object[] { activity, listview })) {
+    /**
+     * Builds AlertDialog which shows only information to the User and has only
+     * neutral button for feedback, and also custom dialog icon. Note: You should always call the show()
+     * method to pop-up the message on the device screen.
+     *
+     * @param activity          {@link Activity} - The activity, which this AlertDialog will be
+     *                          attached to.
+     * @param title             {@link String} - The string, which will be displayed as Title.
+     * @param message           {@link String} - The string, which will be displayed as an
+     *                          informational message.
+     * @param neutralButtonName int - The string resource, which will be displayed as neutral
+     *                          button.
+     * @param icon              int - The drawable resource, which will be used to be displayed
+     *                          as an icon next to the message title.
+     * @param listener          {@link OnClickListener} - Callback that will be attached as
+     *                          listener, when the neutral button has been pressed.
+     * @return {@link android.app.AlertDialog.Builder}- The built AlertDialog
+     * which should be displayed.
+     * @since 1.0
+     */
+    public static AlertDialog.Builder buildInfoDialog(@NonNull Activity activity, @NonNull String title, @NonNull String message,
+                                                      @StringRes int neutralButtonName, @DrawableRes int icon, @NonNull OnClickListener listener) {
 
-			// Initialize Dialog.
-			adb = new AlertDialog.Builder(activity);
+        AlertDialog.Builder adb = null;
 
-			// Set Dialog parameters.
-			adb.setView(listview);
+        if (InitCheck.pass(TAG, "buildInfoDialog", activity, listener, message, title, neutralButtonName)) {
 
-		}
+            // Initialize Dialog.
+            adb = new AlertDialog.Builder(activity);
 
-		return adb;
-	}
+            // Set Dialog parameters.
+            adb.setTitle(title);
+            adb.setIcon(icon);
+            adb.setMessage(message);
+            adb.setNeutralButton(neutralButtonName, listener);
+        }
 
-	// =================================================================================================================================
+        return adb;
+    }
 
-	/**
-	 * Builds AlertDialog which has an optional view with position under the
-	 * dialog Title. The Title is a String parameter. The alert dialog has
-	 * positive and negative buttons for feedback. Note: You should always call
-	 * the show() method to pop-up the message on the device screen.
-	 * 
-	 * @param activity
-	 *            {@link Activity} - The activity which this AlertDialog will be
-	 *            attached to.
-	 * @param title
-	 *            int - The string resource which will be displayed as Title.
-	 * @param optionalView
-	 *            {@link View} - The view which will be added to the Dialog
-	 *            under the title.
-	 * @param positiveButtonName
-	 *            int - The string resource which will be displayed as positive
-	 *            button label.
-	 * @param negativeButtonName
-	 *            int - The string resource which will be displayed as negative
-	 *            button label.
-	 * @param negativeListener
-	 *            {@link OnClickListener} - The callback that will be called
-	 *            when the negative button is pressed.
-	 * @param positiveListener
-	 *            {@link OnClickListener} - The callback that will be called
-	 *            when the positive button is pressed.
-	 * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
-	 *         which will be displayed.
-	 * @since 1.0
-	 */
-	public static AlertDialog.Builder buildPositiveNegativeDialog(@NonNull Activity activity, @NonNull String title,
-			@NonNull View optionalView, @StringRes int positiveButtonName, @StringRes int negativeButtonName,
-			@NonNull OnClickListener negativeListener, @NonNull OnClickListener positiveListener) {
+    // =================================================================================================================================
 
-		AlertDialog.Builder adb = null;
+    /**
+     * Builds AlertDialog which shows list for selection represented as an
+     * optional view parameter. The alert dialog has positive and negative
+     * buttons for feedback. Note: You should always call the show() method to
+     * pop-up the message on the device screen.
+     *
+     * @param activity           {@link Activity} - The activity which this AlertDialog will be
+     *                           attached to.
+     * @param title              int - The string resource which will be displayed as Title.
+     * @param optionalView       {@link View} - The view which will be added to the Dialog
+     *                           under the title.
+     * @param positiveButtonName int - The string resource which will be displayed as positive
+     *                           button label.
+     * @param negativeButtonName int - The string resource which will be displayed as negative
+     *                           button label.
+     * @param negativeListener   {@link OnClickListener} - The callback that will be called
+     *                           when the negative button is pressed.
+     * @param positiveListener   {@link OnClickListener} - The callback that will be called
+     *                           when the positive button is pressed.
+     * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
+     * which will be displayed.
+     * @since 1.0
+     */
+    public static AlertDialog.Builder buildSelectFromListDialog(@NonNull Activity activity, @StringRes int title,
+                                                                @NonNull View optionalView, @StringRes int positiveButtonName,
+                                                                @StringRes int negativeButtonName, @NonNull OnClickListener negativeListener,
+                                                                @NonNull OnClickListener positiveListener) {
 
-		if (InitCheck.comboCheck(TAG, "buildPositiveNegativeDialog", new Object[] { activity, title, optionalView,
-				negativeListener, positiveListener }, new int[] { negativeButtonName, positiveButtonName })) {
+        final AlertDialog.Builder adb = buildPositiveNegativeDialog(activity, title, optionalView, positiveButtonName,
+                negativeButtonName, negativeListener, positiveListener);
 
-			// Initialize Dialog.
-			adb = new AlertDialog.Builder(activity);
+        return adb;
+    }
 
-			// Set Dialog parameters.
-			adb.setTitle(title);
-			adb.setView(optionalView);
-			adb.setNegativeButton(negativeButtonName, negativeListener);
-			adb.setPositiveButton(positiveButtonName, positiveListener);
+    // =================================================================================================================================
 
-		}
+    /**
+     * Builds AlertDialog which shows list of items represented as an ListView
+     * parameter. The alert dialog does NOT have any buttons for feedback. Note:
+     * You should always call the show() method to pop-up the message on the
+     * device screen.
+     *
+     * @param activity {@link Activity} - The activity which this AlertDialog will be
+     *                 attached to.
+     * @param listView {@link View} - The ListView which will be used to represent
+     *                 the context items.
+     * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
+     * which will be displayed.
+     * @since 1.04
+     */
+    public static AlertDialog.Builder buildCustomContextMenuDialog(@NonNull Activity activity, @NonNull ListView listView) {
 
-		return adb;
-	}
+        AlertDialog.Builder adb = null;
 
-	// =================================================================================================================================
+        if (InitCheck.pass(TAG, "buildSelectFromListDialog", activity, listView)) {
 
-	/**
-	 * Builds AlertDialog which has an optional view with position under the
-	 * dialog Title. The Title is an int id of the string resource. The alert
-	 * dialog has positive and negative buttons for feedback. Note: You should
-	 * always call the show() method to pop-up the message on the device screen.
-	 * 
-	 * @param activity
-	 *            {@link Activity} - The activity which this AlertDialog will be
-	 *            attached to.
-	 * @param title
-	 *            int - The string resource which will be displayed as Title.
-	 * @param optionalView
-	 *            {@link View} - The view which will be added to the Dialog
-	 *            under the title.
-	 * @param positiveButtonName
-	 *            int - The string resource which will be displayed as positive
-	 *            button label.
-	 * @param negativeButtonName
-	 *            int - The string resource which will be displayed as negative
-	 *            button label.
-	 * @param negativeListener
-	 *            {@link OnClickListener} - The callback that will be called
-	 *            when the negative button is pressed.
-	 * @param positiveListener
-	 *            {@link OnClickListener} - The callback that will be called
-	 *            when the positive button is pressed.
-	 * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
-	 *         which should be displayed.
-	 * @since 1.06
-	 */
-	public static AlertDialog.Builder buildPositiveNegativeDialog(@NonNull Activity activity, int title,
-			@NonNull View optionalView, @StringRes int positiveButtonName, @StringRes int negativeButtonName,
-			@NonNull OnClickListener negativeListener, @NonNull OnClickListener positiveListener) {
+            // Initialize Dialog.
+            adb = new AlertDialog.Builder(activity);
 
-		if (InitCheck.comboCheck(TAG, "buildPositiveNegativeDialog", new Object[] { activity }, new int[] { title })) {
+            // Set Dialog parameters.
+            adb.setView(listView);
+        }
 
-			final String titleAsString = activity.getString(title);
+        return adb;
+    }
 
-			return buildPositiveNegativeDialog(activity, titleAsString, optionalView, positiveButtonName,
-					negativeButtonName, negativeListener, positiveListener);
-		}
+    // =================================================================================================================================
 
-		return null;
-	}
+    /**
+     * Builds AlertDialog which has an optional view with position under the
+     * dialog Title. The Title is a String parameter. The alert dialog has
+     * positive and negative buttons for feedback. Note: You should always call
+     * the show() method to pop-up the message on the device screen.
+     *
+     * @param activity           {@link Activity} - The activity which this AlertDialog will be
+     *                           attached to.
+     * @param title              int - The string resource which will be displayed as Title.
+     * @param optionalView       {@link View} - The view which will be added to the Dialog
+     *                           under the title.
+     * @param positiveButtonName int - The string resource which will be displayed as positive
+     *                           button label.
+     * @param negativeButtonName int - The string resource which will be displayed as negative
+     *                           button label.
+     * @param negativeListener   {@link OnClickListener} - The callback that will be called
+     *                           when the negative button is pressed.
+     * @param positiveListener   {@link OnClickListener} - The callback that will be called
+     *                           when the positive button is pressed.
+     * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
+     * which will be displayed.
+     * @since 1.0
+     */
+    public static AlertDialog.Builder buildPositiveNegativeDialog(@NonNull Activity activity, @NonNull String title, @NonNull View optionalView,
+                                                                  @StringRes int positiveButtonName, @StringRes int negativeButtonName,
+                                                                  @NonNull OnClickListener negativeListener, @NonNull OnClickListener positiveListener) {
 
-	// =================================================================================================================================
+        AlertDialog.Builder adb = null;
 
-	/**
-	 * Builds AlertDialog which has optional View under the Title and a neutral
-	 * button for feedback. Note: You should always call the show() method to
-	 * pop-up the message on the device screen.
-	 * 
-	 * @param activity
-	 *            {@link Activity} - The activity which this AlertDialog will be
-	 *            attached to.
-	 * @param title
-	 *            int - The string resource which will be displayed as Title.
-	 * @param optionalView
-	 *            {@link View} - The view which will be added to the Dialog
-	 *            under the title.
-	 * @param neutralButtonName
-	 *            int - The string resource which will be displayed as positive
-	 *            button label.
-	 * @param neutralListener
-	 *            {@link OnClickListener} - The callback that will be called
-	 *            when the positive button is pressed.
-	 * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
-	 *         which will be displayed.
-	 * @since 1.0
-	 */
-	public static AlertDialog.Builder buildNeutralOptionsDialog(@NonNull Activity activity, @NonNull String title,
-			@NonNull View optionalView, @StringRes int neutralButtonName, @NonNull OnClickListener neutralListener) {
+        if (InitCheck.pass(TAG, "buildPositiveNegativeDialog", activity, title, optionalView, negativeListener, positiveListener,
+                negativeButtonName, positiveButtonName)) {
 
-		AlertDialog.Builder adb = null;
+            // Initialize Dialog.
+            adb = new AlertDialog.Builder(activity);
 
-		if (InitCheck.comboCheck(TAG, "buildNeutralOptionsDialog", new Object[] { activity, title, optionalView,
-				neutralListener }, new int[] { neutralButtonName })) {
+            // Set Dialog parameters.
+            adb.setTitle(title);
+            adb.setView(optionalView);
+            adb.setNegativeButton(negativeButtonName, negativeListener);
+            adb.setPositiveButton(positiveButtonName, positiveListener);
+        }
 
-			// Initialize Dialog.
-			adb = new AlertDialog.Builder(activity);
+        return adb;
+    }
 
-			// Set Dialog parameters.
-			adb.setTitle(title);
-			adb.setView(optionalView);
-			adb.setNeutralButton(neutralButtonName, neutralListener);
+    // =================================================================================================================================
 
-		}
+    /**
+     * Builds AlertDialog which has an optional view with position under the
+     * dialog Title. The Title is an int id of the string resource. The alert
+     * dialog has positive and negative buttons for feedback. Note: You should
+     * always call the show() method to pop-up the message on the device screen.
+     *
+     * @param activity           {@link Activity} - The activity which this AlertDialog will be
+     *                           attached to.
+     * @param title              int - The string resource which will be displayed as Title.
+     * @param optionalView       {@link View} - The view which will be added to the Dialog
+     *                           under the title.
+     * @param positiveButtonName int - The string resource which will be displayed as positive
+     *                           button label.
+     * @param negativeButtonName int - The string resource which will be displayed as negative
+     *                           button label.
+     * @param negativeListener   {@link OnClickListener} - The callback that will be called
+     *                           when the negative button is pressed.
+     * @param positiveListener   {@link OnClickListener} - The callback that will be called
+     *                           when the positive button is pressed.
+     * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
+     * which should be displayed.
+     * @since 1.06
+     */
+    public static AlertDialog.Builder buildPositiveNegativeDialog(@NonNull Activity activity, int title, @NonNull View optionalView,
+                                                                  @StringRes int positiveButtonName, @StringRes int negativeButtonName,
+                                                                  @NonNull OnClickListener negativeListener, @NonNull OnClickListener
+                                                                          positiveListener) {
 
-		return adb;
-	}
+        if (InitCheck.pass(TAG, "buildPositiveNegativeDialog", activity, title)) {
 
-	// =================================================================================================================================
+            final String titleAsString = activity.getString(title);
 
-	/**
-	 * Shows up a Toast message with SHORT duration. The message should be a
-	 * String.
-	 * 
-	 * @param context
-	 *            {@link Context} - The context that the Toast will be attached
-	 *            to.
-	 * @param message
-	 *            {@link String} - The String that will be shown as a message in
-	 *            the Toast.
-	 * @since 1.05
-	 */
-	public static void showToastMessage(@NonNull Context context, @NonNull String message) {
+            return buildPositiveNegativeDialog(activity, titleAsString, optionalView, positiveButtonName, negativeButtonName, negativeListener,
+                    positiveListener);
+        }
 
-		if (InitCheck.pass(TAG, "showToastMessage", context, message )) {
+        return null;
+    }
 
-			Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-		}
+    // =================================================================================================================================
 
-	}
+    /**
+     * Builds AlertDialog which has optional View under the Title and a neutral
+     * button for feedback. Note: You should always call the show() method to
+     * pop-up the message on the device screen.
+     *
+     * @param activity          {@link Activity} - The activity which this AlertDialog will be
+     *                          attached to.
+     * @param title             {@link String} - The string resource which will be displayed as Title.
+     * @param optionalView      {@link View} - The view which will be added to the Dialog
+     *                          under the title.
+     * @param neutralButtonName int - The string resource which will be displayed as positive
+     *                          button label.
+     * @param neutralListener   {@link OnClickListener} - The callback that will be called
+     *                          when the positive button is pressed.
+     * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
+     * which will be displayed.
+     * @since 1.0
+     */
+    public static AlertDialog.Builder buildNeutralOptionsDialog(@NonNull Activity activity, @NonNull String title, @NonNull View optionalView,
+                                                                @StringRes int neutralButtonName, @NonNull OnClickListener neutralListener) {
 
-	// =================================================================================================================================
+        AlertDialog.Builder adb = null;
 
-	/**
-	 * Shows up a Toast message with SHORT duration. The message parameter
-	 * should be the int id of the string resource.
-	 * 
-	 * @param context
-	 *            {@link Context} - The context that the Toast will be attached
-	 *            to.
-	 * @param messageResId
-	 *            int - The id of the string resource which will be shown as a
-	 *            message.
-	 * @since 1.05
-	 */
-	public static void showToastMessage(@NonNull Context context, @StringRes int messageResId) {
+        if (InitCheck.pass(TAG, "buildNeutralOptionsDialog", activity, title, optionalView, neutralListener, neutralButtonName)) {
 
-		if (InitCheck.comboCheck(TAG, "showToastMessage", new Object[] { context }, new int[] { messageResId })) {
+            // Initialize Dialog.
+            adb = new AlertDialog.Builder(activity);
 
-			Toast.makeText(context, messageResId, Toast.LENGTH_SHORT).show();
-		}
+            // Set Dialog parameters.
+            adb.setTitle(title);
+            adb.setView(optionalView);
+            adb.setNeutralButton(neutralButtonName, neutralListener);
+        }
 
-	}
+        return adb;
+    }
+    // =================================================================================================================================
 
-	// =================================================================================================================================
+    /**
+     * Builds AlertDialog which has optional View under the Title and a neutral
+     * button for feedback. Note: You should always call the show() method to
+     * pop-up the message on the device screen.
+     *
+     * @param activity          {@link Activity} - The activity which this AlertDialog will be
+     *                          attached to.
+     * @param title             int - The string resource which will be displayed as Title.
+     * @param optionalView      {@link View} - The view which will be added to the Dialog
+     *                          under the title.
+     * @param neutralButtonName int - The string resource which will be displayed as positive
+     *                          button label.
+     * @param neutralListener   {@link OnClickListener} - The callback that will be called
+     *                          when the positive button is pressed.
+     * @return {@link android.app.AlertDialog.Builder} - The built AlertDialog
+     * which will be displayed.
+     * @since 1.09
+     */
+    public static AlertDialog.Builder buildNeutralOptionsDialog(@NonNull Activity activity, @StringRes int title, @NonNull View optionalView,
+                                                                @StringRes int neutralButtonName, @NonNull OnClickListener neutralListener) {
 
-	/**
-	 * Initializes the container layout and the views for the Credentials
-	 * Dialog.
-	 * 
-	 * @param activity
-	 *            {@link Activity} - The activity which the Alert Dialog will be
-	 *            attached to.
-	 * @return {@link LinearLayout} - The Linear layout which will be used as an
-	 *         optional View and container.
-	 * @since 1.07
-	 */
-	public static LinearLayout initCredentialsDialogViews(@NonNull Activity activity) {
+        AlertDialog.Builder adb = null;
 
-		final String methodName = "initCredentialsDialogViews";
-		LinearLayout container = null;
-		final ViewGroup nullParent = null;
+        if (InitCheck.pass(TAG, "buildNeutralOptionsDialog", activity, title, optionalView, neutralListener, neutralButtonName)) {
 
-		if (Check.notNull(TAG, "activity Activity", methodName, activity)) {
+            // Initialize Dialog.
+            adb = new AlertDialog.Builder(activity);
 
-			container = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.dialog_login_form, nullParent);
+            // Set Dialog parameters.
+            adb.setTitle(title);
+            adb.setView(optionalView);
+            adb.setNeutralButton(neutralButtonName, neutralListener);
+        }
 
-			if (Check.notNull(TAG, "container LinearLayout", methodName, container)) {
+        return adb;
+    }
 
-				final EditText passwrdField = (EditText) container.findViewById(R.id.dialogLoginFormEditBoxPasswrd);
-				final CheckBox checkBox = (CheckBox) container.findViewById(R.id.dialogLoginFormCheckBoxShowPasswrd);
+    // =================================================================================================================================
 
-				if (Check.notNull(TAG, "checkBox CheckBox", methodName, checkBox)) {
+    /**
+     * Shows up a Toast message with SHORT duration. The message should be a
+     * String.
+     *
+     * @param context {@link Context} - The context that the Toast will be attached
+     *                to.
+     * @param message {@link String} - The String that will be shown as a message in
+     *                the Toast.
+     * @since 1.05
+     */
+    public static void showToastMessage(@NonNull Context context, @NonNull String message) {
 
-					checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        if (InitCheck.pass(TAG, "showToastMessage", context, message)) {
+
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    // =================================================================================================================================
+
+    /**
+     * Shows up a Toast message with SHORT duration. The message parameter
+     * should be the int id of the string resource.
+     *
+     * @param context      {@link Context} - The context that the Toast will be attached
+     *                     to.
+     * @param messageResId int - The id of the string resource which will be shown as a
+     *                     message.
+     * @since 1.05
+     */
+    public static void showToastMessage(@NonNull Context context, @StringRes int messageResId) {
+
+        if (InitCheck.pass(TAG, "showToastMessage", context, messageResId)) {
+
+            Toast.makeText(context, messageResId, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    // =================================================================================================================================
+
+    /**
+     * Initializes the container layout and the views for the Credentials
+     * Dialog.
+     *
+     * @param activity {@link Activity} - The activity which the Alert Dialog will be
+     *                 attached to.
+     * @return {@link LinearLayout} - The Linear layout which will be used as an
+     * optional View and container.
+     * @since 1.07
+     */
+    public static LinearLayout initCredentialsDialogViews(@NonNull Activity activity) {
+
+        final String methodName = "initCredentialsDialogViews";
+        LinearLayout container = null;
+        final ViewGroup nullParent = null;
+
+        if (Check.notNull(TAG, "activity Activity", methodName, activity)) {
+
+            container = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.dialog_login_form, nullParent);
+
+            if (Check.notNull(TAG, "container LinearLayout", methodName, container)) {
+
+                final EditText passwrdField = (EditText) container.findViewById(R.id.dialogLoginFormEditBoxPasswrd);
+                final CheckBox checkBox = (CheckBox) container.findViewById(R.id.dialogLoginFormCheckBoxShowPasswrd);
+
+                if (Check.notNull(TAG, "checkBox CheckBox", methodName, checkBox)) {
+
+                    checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
                         if (Check.notNull(TAG, "passwrdField EditText", "onCheckedChanged in " + methodName,
                                 passwrdField)) {
@@ -408,10 +489,36 @@ public class DialogFactory {
 
                         }
                     });
-				}
-			}
-		}
+                }
+            }
+        }
 
-		return container;
-	}
+        return container;
+    }
+
+    /**
+     * Deprecated. The ProgressDialog has been deprecated by Google, since the API 26 (Android 8 -
+     * code name 'O'). The functionality should remain working, but Google suggests us using the
+     * ProgressBar instead.
+     *
+     * @param context {@link Context} - The activity context for this ProgressDialog.
+     * @param message  {@link String} - The message, which will appear in the ProgressDialog.
+     * @return ProgressDialog - Returns instance of the ProgressDialog. Don't forget to call the
+     * show() method.
+     */
+    @Deprecated
+    public static ProgressDialog buildProgressDialog(@NonNull Context context, @NonNull String message) {
+
+        ProgressDialog progressDialog = null;
+
+        if (InitCheck.pass(TAG, "buildProgressBar", context, message)) {
+
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage(message);
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(false);
+        }
+
+        return progressDialog;
+    }
 }

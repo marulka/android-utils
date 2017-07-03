@@ -27,7 +27,7 @@ import android.support.annotation.NonNull;
  * Official Git repository at https://github.com/marulka/android-utils
  * 
  * @author Nikola Georgiev
- * @version 1.04
+ * @version 1.06
  * @since 1.0
  * 
  */
@@ -43,7 +43,7 @@ public class InitCheck {
 	// =================================================================================================================================
 
 	/**
-	 * Checks at same time object array with variables and integer array with
+	 * Deprecated. Checks at same time object array with variables and integer array with
 	 * ints. The object array will be checked with the pass() method, see
 	 * InitCheck.pass method. All integers in the int[] will be checked,
 	 * whether they are positive or not. In case of incorrect variables, please
@@ -63,6 +63,7 @@ public class InitCheck {
 	 *         returns false.
 	 * @since 1.03
 	 */
+	@Deprecated
 	public static boolean comboCheck(@NonNull String tag, @NonNull String methodName, @NonNull Object[] objects,
 			int[] integers) {
 
@@ -84,7 +85,7 @@ public class InitCheck {
 	// =================================================================================================================================
 
 	/**
-	 * 
+	 *
 	 * Checks the objects in the objects array, first of all, if they have valid
 	 * pointer, and depending on the object type, if they are valid
 	 * {@link String}, {@link Collection}, or {@link Bundle}. <br>
@@ -94,7 +95,7 @@ public class InitCheck {
 	 * and the size is bigger than 0 (zero). <br>
 	 * - A valid {@link Bundle} will be each bundle, which has a pointer and it
 	 * is not empty.
-	 * 
+	 *
 	 * @param tag
 	 *            {@link String} - The name of the class caller.
 	 * @param methodName
@@ -115,18 +116,18 @@ public class InitCheck {
 
 		if (Check.notNull(tag, "objects Object[]", methodName, objects)) {
 
-            for (Object object : objects) {
+			for (Object object : objects) {
 
-                try {
+				try {
 
-                    isNull = checkInstance(tag, methodName, isNull, object);
+					isNull = checkInstance(tag, methodName, isNull, object);
 
-                } catch (final Exception e) {
-                    Debug.error(TAG, "check all the variables in the objects array", pass, e);
-                }
+				} catch (final Exception e) {
+					Debug.error(TAG, "check all the variables in the objects array", pass, e);
+				}
 
-                hasNull |= isNull;
-            }
+				hasNull |= isNull;
+			}
 
 		}
 
@@ -135,18 +136,22 @@ public class InitCheck {
 
 	// =================================================================================================================================
 
+	// =================================================================================================================================
+
 	/**
 	 * 
 	 * Check a single variable, whether it is a valid object, or not. First of
 	 * all checks, if t does have a valid pointer, and depending on the object
-	 * type, if it is a valid {@link String}, {@link Collection}, or
-	 * {@link Bundle}. <br>
+	 * type, if it is a valid {@link String}, {@link Collection},
+	 * {@link Bundle}, or {@link Integer}. <br>
 	 * - A valid {@link String} will be each string, which has a pointer and the
 	 * length is bigger than 0 (zero). <br>
 	 * - A valid {@link Collection} will be each collection, which has a pointer
 	 * and the size is bigger than 0 (zero). <br>
 	 * - A valid {@link Bundle} will be each bundle, which has a pointer and it
 	 * is not empty.
+	 * - A valid {@link Integer} will be each Integer, which has a pointer, or
+	 * primitive int, and in both cases has positive value.
 	 * 
 	 * @param tag
 	 *            {@link String} - The name of the class caller.
@@ -188,6 +193,10 @@ public class InitCheck {
 
 				Debug.wSize(tag, "object Bundle", methodName);
 			}
+
+		} else if (object instanceof Integer) {
+
+			isNull = !Check.positiveInt(tag, "integer", methodName, (Integer) object);
 
 		} else if (object == null) {
 

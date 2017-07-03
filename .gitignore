@@ -3,6 +3,9 @@ local.properties
 *.keystore
 *.DS_Store
 proguard-project.txt
+pom.xml
+settings.xml
+gradle.properties
 
 # Gradle
 **/.gradle

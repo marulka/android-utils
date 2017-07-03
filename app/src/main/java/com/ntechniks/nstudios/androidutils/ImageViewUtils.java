@@ -40,7 +40,7 @@ import com.bumptech.glide.Glide;
  * Official Git repository at https://github.com/marulka/android-utils
  *
  * @author Nikola Georgiev
- * @version 1.05
+ * @version 1.06
  * @since 1.0
  */
 @SuppressLint("NewApi")
@@ -69,7 +69,7 @@ public class ImageViewUtils {
      */
     public static void setImageByResId(@NonNull Activity activity, @NonNull ImageView view, @AnyRes int resId) {
 
-        if (InitCheck.comboCheck(TAG, "setImageByResId", new Object[]{activity, view}, new int[]{resId})) {
+        if (InitCheck.pass(TAG, "setImageByResId", activity, view, resId)) {
 
             final Uri uri = getDrawableResUri(activity, resId);
 
@@ -121,7 +121,7 @@ public class ImageViewUtils {
      */
     public static void setImageByPath(@NonNull Activity activity, @NonNull ImageView view, @NonNull String path) {
 
-        if (Check.notNull(TAG, "view ImageView", "setImageByPath", view)) {
+        if (InitCheck.pass(TAG, "setImageByPath", activity, view, path)) {
 
             // Will get scale ratio only if the image is bigger than image view.
             final float sizeMultiplier = ImageScaleUtils.getScaleRatio(activity, path);
@@ -289,7 +289,7 @@ public class ImageViewUtils {
      */
     public static Uri getDrawableResUri(@NonNull Context context, @AnyRes int drawableId) {
 
-        if (InitCheck.comboCheck(TAG, "getDrawableResUri", new Object[]{context}, new int[]{drawableId})) {
+        if (InitCheck.pass(TAG, "getDrawableResUri", context, drawableId)) {
 
             final Resources resources = context.getResources();
             final Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
