@@ -29,19 +29,18 @@ import android.util.DisplayMetrics;
  * Official Git repository at https://github.com/marulka/android-utils
  * 
  * @author Nikola Georgiev
- * @version 1.02
- * @since 1.0
+ * @version 1.0
+ * @since 1.1.2
  * 
  */
-@Deprecated
-public class ImageScaleUtils {
+public class ImageUtils {
 
 	/**
 	 * The name of the class.
-	 * 
+	 *
 	 * @since 1.0
 	 */
-	private static final String TAG = "ImageScaleUtils";
+	private static final String TAG = "ImageUtils";
 
 	// =================================================================================================================================
 
@@ -50,7 +49,7 @@ public class ImageScaleUtils {
 	 * fit in the screen. The image will be obtained by the provided image path
 	 * as String. In case the image is smaller than the device screen, the ratio
 	 * will be 1.0, which means, the up-scale is not going to be computed.
-	 * 
+	 *
 	 * @param activity
 	 *            {@link Activity} - The activity context.
 	 * @param path
@@ -59,7 +58,6 @@ public class ImageScaleUtils {
 	 *         and 1.0f.
 	 * @since 1.0
 	 */
-	@Deprecated
 	public static float getScaleRatio(@NonNull Activity activity, @NonNull String path) {
 
 		final Rect imageDimens = getImageDimens(path);
@@ -77,7 +75,7 @@ public class ImageScaleUtils {
 	 * fit in the screen. Dimensions of the image and window will be used as
 	 * Rect parameters. In case the image is smaller than the device screen, the
 	 * ratio will be 1.0, which means, the up-scale is not going to be computed.
-	 * 
+	 *
 	 * @param imageDimens
 	 *            {@link Rect} - The image dimensions as a Rect object.
 	 * @param windowDimens
@@ -85,7 +83,6 @@ public class ImageScaleUtils {
 	 * @return float
 	 * @since 1.0
 	 */
-	@Deprecated
 	public static float getScaleRatio(@NonNull Rect imageDimens, @NonNull Rect windowDimens) {
 
 		if (InitCheck.pass(TAG, "getScaleRatio", imageDimens, windowDimens )) {
@@ -108,14 +105,13 @@ public class ImageScaleUtils {
 
 	/**
 	 * Gets the device screen dimensions and put them in a Rect object.
-	 * 
+	 *
 	 * @param activity
 	 *            {@link Activity} - The activity context.
 	 * @return {@link Rect} - The device screen dimensions represented as a
 	 *         rectangle.
 	 * @since 1.0
 	 */
-	@Deprecated
 	public static Rect getScreenDimens(@NonNull Activity activity) {
 
 		if (Check.notNull(TAG, "activity Activity", "getScreenDimens", activity)) {
@@ -136,14 +132,13 @@ public class ImageScaleUtils {
 
 	/**
 	 * Will check the orientation of a given rectangle.
-	 * 
+	 *
 	 * @param rec
 	 *            {@link Rect} - The rectangle which should be checked.
 	 * @return boolean - If the rectangle orientation is in landscape will
 	 *         return true, if not it will return false.
 	 * @since 1.0
 	 */
-	@Deprecated
 	public static boolean isLandscape(@NonNull Rect rec) {
 
 		if (Check.notNull(TAG, "rec Rect", "isLandscape", rec)) {
@@ -161,13 +156,12 @@ public class ImageScaleUtils {
 
 	/**
 	 * Gets the image dimensions and put them in a Rect object.
-	 * 
+	 *
 	 * @param imagePath
 	 *            {@link String} - The String path to the image file.
 	 * @return Rect - The image dimensions represented as a rectangle object.
 	 * @since 1.0
 	 */
-	@Deprecated
 	public static Rect getImageDimens(@NonNull String imagePath) {
 
 		if (Check.validString(TAG, "imagePath String", "getImageDimens", imagePath)) {
@@ -176,7 +170,7 @@ public class ImageScaleUtils {
 			 * The BitmapFactory will only decode the file to get its dimension,
 			 * the bitmap image won't be loaded in the memory.
 			 */
-			final Options options = new BitmapFactory.Options();
+			final Options options = new Options();
 			options.inJustDecodeBounds = true;
 			BitmapFactory.decodeFile(imagePath, options);
 

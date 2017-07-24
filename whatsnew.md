@@ -1,3 +1,9 @@
+Android-Utils v1.1.3
+
+- Code cleanup.
+- New DeviceInfo class.
+- Deprecated class ImageScaleUtils and replaced by ImageUtils class.
+
 Android-Utils v1.1.0
 
 - Added support of Android API26 Alpha (Android 8 - Code name "O").
