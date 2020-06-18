@@ -2,34 +2,36 @@ package com.ntechniks.nstudios.androidutils;
 
 /*
  * Copyright (C) 2017 Nikola Georgiev
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  */
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
  *
  * @author Nikola Georgiev
- * @version 1.02
- * @since 1.0
+ * @version 1.3
+ * @since 1.0.0
  */
 public class WaterMarkerFactory {
 
@@ -39,6 +41,15 @@ public class WaterMarkerFactory {
      * @since 1.0
      */
     private static final String TAG = "WaterMarkerFactory";
+
+    /**
+     * Main constructor with private accessor to prevent instantiating the class.
+     *
+     * @since 1.2.0
+     */
+    private WaterMarkerFactory() {
+        // Nothing to implement here.
+    }
 
     // =================================================================================================================================
 
@@ -59,6 +70,7 @@ public class WaterMarkerFactory {
      * including the water-mark on it.
      * @since 1.0
      */
+    @Nullable
     public static Bitmap mark(@NonNull Bitmap oldImage, @NonNull String watermark, int color, int alpha, int size,
                               boolean underline) {
 
@@ -96,9 +108,7 @@ public class WaterMarkerFactory {
 
                 canvas.drawText(watermark, location.x, location.y, paint);
             }
-
         }
-
         return result;
     }
 
@@ -117,22 +127,19 @@ public class WaterMarkerFactory {
      * placed at.
      * @since 1.0
      */
+    @Nullable
     private static Point getLocation(int width, int height, @NonNull String watermark, int size) {
 
         if (InitCheck.pass(TAG, "getLocation", watermark, width, height, size)) {
 
             final int length = watermark.length();
-
             if ((length * size) < width) {
 
                 final int x = width - (length * size);
                 final int y = height - (size * 2);
-
                 return new Point(x, y);
             }
-
         }
-
         return null;
     }
 }

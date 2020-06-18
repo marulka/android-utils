@@ -22,8 +22,9 @@ import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
+
+import androidx.annotation.NonNull;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
@@ -41,6 +42,15 @@ public class ImageUtils {
 	 * @since 1.0
 	 */
 	private static final String TAG = "ImageUtils";
+
+    /**
+     * Main constructor with private accessor to prevent instantiating the class.
+     *
+     * @since 1.2.0
+     */
+	private ImageUtils() {
+        // Nothing to implement here.
+    }
 
 	// =================================================================================================================================
 
@@ -63,9 +73,7 @@ public class ImageUtils {
 		final Rect imageDimens = getImageDimens(path);
 		final Rect windowDimens = getScreenDimens(activity);
 
-		final float scaleRatio = getScaleRatio(imageDimens, windowDimens);
-
-		return scaleRatio;
+        return getScaleRatio(imageDimens, windowDimens);
 	}
 
 	// =================================================================================================================================
@@ -87,14 +95,11 @@ public class ImageUtils {
 
 		if (InitCheck.pass(TAG, "getScaleRatio", imageDimens, windowDimens )) {
 
-			int viewWidth;
-			final int imageWidth = imageDimens.top;
+			final int viewWidth = (isLandscape(windowDimens)) ? (windowDimens.top / 2) :
+                    windowDimens.top;
 
-			viewWidth = (isLandscape(windowDimens)) ? (windowDimens.top / 2) : windowDimens.top;
-
-			if (viewWidth > imageWidth) {
-				final float scaleRatio = (imageWidth * 1.0F) / (viewWidth * 1.0F);
-				return scaleRatio;
+			if (viewWidth > imageDimens.top) {
+                return (imageDimens.top * 1.0F) / (viewWidth * 1.0F);
 			}
 		}
 

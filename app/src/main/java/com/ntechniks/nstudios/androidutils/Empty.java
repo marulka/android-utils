@@ -21,45 +21,55 @@ package com.ntechniks.nstudios.androidutils;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Official Git repository at https://github.com/marulka/android-utils
- * 
+ *
  * @author Nikola Georgiev
  * @version 1.01
  * @since 1.0
- * 
  */
 public class Empty {
 
-	/**
-	 * Returns empty String. The string HAS a pointer, but also has a ZERO
-	 * length.
-	 * 
-	 * @return {@link String}
-	 * @since 1.0
-	 */
-	public static String string() {
-		return "";
-	}
+    /**
+     * Main constructor with private accessor to prevent instantiating the class.
+     *
+     * @since 1.2.0
+     */
+    private Empty() {
+        // Nothing to implement here.
+    }
 
-	// =================================================================================================================================
+    /**
+     * Returns empty String. The string HAS a pointer, but also has a ZERO
+     * length.
+     *
+     * @return {@link String}
+     * @since 1.0
+     */
+    public static String string() {
+        return StringUtils.EMPTY;
+    }
 
-	/**
-	 * Returns empty {@link DialogInterface.OnClickListener}. The listener HAS
-	 * pointer, but does NOT have an implemented business logic inside the
-	 * onClick() callback.
-	 * 
-	 * @return {@link DialogInterface.OnClickListener}
-	 * @since 1.0
-	 */
-	public static DialogInterface.OnClickListener onClickListener() {
+    // =============================================================================================
 
-		return new OnClickListener() {
+    /**
+     * Returns empty {@link DialogInterface.OnClickListener}. The listener HAS
+     * pointer, but does NOT have an implemented business logic inside the
+     * onClick() callback.
+     *
+     * @return {@link DialogInterface.OnClickListener}
+     * @since 1.0
+     */
+    public static DialogInterface.OnClickListener onClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// Does nothing.
-			}
-		};
-	}
+        return new OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Does nothing.
+            }
+        };
+    }
 }

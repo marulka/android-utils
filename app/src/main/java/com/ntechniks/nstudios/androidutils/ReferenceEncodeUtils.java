@@ -2,20 +2,20 @@ package com.ntechniks.nstudios.androidutils;
 
 /*
  * Copyright (C) 2017 Nikola Georgiev
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>
- * 
+ *
  */
 
 import java.util.Arrays;
@@ -24,14 +24,15 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
  *
  * @author Nikola Georgiev
- * @version 1.06
- * @since 1.0
+ * @version 1.6
+ * @since 1.1.0
  */
 public class ReferenceEncodeUtils {
 
@@ -41,6 +42,15 @@ public class ReferenceEncodeUtils {
      * @since 1.0
      */
     private static final String TAG = "ReferenceEncodeUtils";
+
+    /**
+     * Main constructor with private accessor to prevent instantiating the class.
+     *
+     * @since 1.2.0
+     */
+    private ReferenceEncodeUtils() {
+        // Nothing to implement here.
+    }
 
     /**
      * The key which will be used to identify the saved list item index in the
@@ -85,24 +95,18 @@ public class ReferenceEncodeUtils {
         final String methodName = "encodeRequestCode";
         int key = -1;
 
-        if (Check.validString(TAG, "refNum", methodName, refNum)) {
+        if (Check.validString(TAG, "refNum String", methodName, refNum)) {
 
-            if (Check.validString(TAG, "refNum String", methodName, refNum)) {
+            final int dividerPos = findDivider(refNum, divider);
+            if (Check.positiveInt(TAG, "dividerPos", methodName, dividerPos)) {
 
-                final int deviderPos = findDivider(refNum, divider);
+                final int pageId = getPageIdFromString(refNum, dividerPos);
+                final int totalCount = getTotalCount(refNum, dividerPos);
+                final int multiplier = getMultiplier(index, pageId, totalCount);
 
-                if (Check.positiveInt(TAG, "deviderPos", methodName, deviderPos)) {
-
-                    final int pageId = getPageIdFromString(refNum, deviderPos);
-                    final int totalCount = getTotalCount(refNum, deviderPos);
-                    final int multiplier = getMultiplier(index, pageId, totalCount);
-
-                    key = encode(pageId, totalCount, index, multiplier);
-
-                }
+                key = encode(pageId, totalCount, index, multiplier);
             }
         }
-
         return key;
     }
 
@@ -125,16 +129,13 @@ public class ReferenceEncodeUtils {
         if (InitCheck.pass(TAG, methodName, refNum, dividerPos)) {
 
             try {
-
                 final String substring = refNum.substring(0, dividerPos);
                 pageId = Integer.parseInt(substring);
 
             } catch (final NumberFormatException nfe) {
                 Debug.error(TAG, "parse String to int", methodName, nfe);
             }
-
         }
-
         return pageId;
     }
 
@@ -155,9 +156,7 @@ public class ReferenceEncodeUtils {
         int totalCount = -1; // Fail value.
 
         if (InitCheck.pass(TAG, methodName, refNum, dividerPos)) {
-
             try {
-
                 final int endIndex = refNum.length();
                 final String substring = refNum.substring(dividerPos + 1, endIndex);
                 totalCount = Integer.parseInt(substring);
@@ -165,9 +164,7 @@ public class ReferenceEncodeUtils {
             } catch (final NumberFormatException nfe) {
                 Debug.error(TAG, "parse String to int", methodName, nfe);
             }
-
         }
-
         return totalCount;
     }
 
@@ -193,9 +190,7 @@ public class ReferenceEncodeUtils {
             final int maxInt = Math.max(Math.max(index, pageId), totalCount);
             final String maxIntAsString = String.valueOf(maxInt);
             multiplier = maxIntAsString.length();
-
         }
-
         return multiplier;
     }
 
@@ -236,7 +231,6 @@ public class ReferenceEncodeUtils {
 
             keyCode = Integer.parseInt(requestCodeAsString);
         }
-
         return keyCode;
     }
 
@@ -263,7 +257,6 @@ public class ReferenceEncodeUtils {
             if (charArray.length >= multiplier) {
 
                 baseString = new String(charArray, multiplier - (baseString.length()), multiplier);
-
             } else {
 
                 final char[] newCharArray = new char[multiplier - charArray.length];
@@ -271,11 +264,8 @@ public class ReferenceEncodeUtils {
 
                 baseString = new String(newCharArray);
                 baseString += new String(charArray, 0, baseString.length());
-
             }
-
         }
-
         return baseString;
     }
 
@@ -295,7 +285,6 @@ public class ReferenceEncodeUtils {
         if (Check.validString(TAG, "refNum", methodName, refNum)) {
 
             for (int i = 0; i < refNum.length(); i++) {
-
                 try {
 
                     final char letter = refNum.charAt(i);
@@ -307,9 +296,7 @@ public class ReferenceEncodeUtils {
                     Debug.error(TAG, "get char at position " + i + " in the refNum String", methodName, e);
                 }
             }
-
         }
-
         return -1;
     }
 
@@ -329,9 +316,7 @@ public class ReferenceEncodeUtils {
         final Map<String, Integer> valuesMap = new HashMap<String, Integer>();
 
         try {
-
             final String requestCodeAsString = String.valueOf(requestCode);
-
             final int multiplier = Integer.valueOf(String.valueOf(requestCodeAsString.charAt(0)));
 
             if (Check.positiveInt(TAG, "multiplier", methodName, multiplier)) {
@@ -354,13 +339,10 @@ public class ReferenceEncodeUtils {
                 valuesMap.put(KEY_ITEM_INDEX, index);
                 valuesMap.put(KEY_PAGE_ID, pageId);
                 valuesMap.put(KEY_TOTAL_COUNT, pagesCount);
-
             }
-
         } catch (final Exception e) {
             Debug.error(TAG, "get blocks from encoded number " + requestCode, methodName, e);
         }
-
         return valuesMap;
     }
 
@@ -386,12 +368,9 @@ public class ReferenceEncodeUtils {
 
                 final int pageId = valuesMap.get(KEY_PAGE_ID);
                 final int totalCount = valuesMap.get(KEY_TOTAL_COUNT);
-                tag = String.valueOf(pageId) + "/" + String.valueOf(totalCount);
-
+                tag = pageId + "/" + totalCount;
             }
-
         }
-
         return tag;
     }
 
@@ -412,13 +391,10 @@ public class ReferenceEncodeUtils {
         if (Check.positiveInt(TAG, "requestCode", methodName, requestCode)) {
 
             final Map<String, Integer> valuesMap = decode(requestCode);
-
             if (Check.notNull(TAG, "valuesMap Map", methodName, valuesMap)) {
                 topicIndex = valuesMap.get(KEY_ITEM_INDEX);
             }
-
         }
-
         return topicIndex;
     }
 }

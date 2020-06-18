@@ -22,7 +22,8 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
@@ -40,7 +41,16 @@ public class DeviceInfo {
      */
     private static final String TAG = "DeviceInfo";
 
-    // =================================================================================================================================
+    /**
+     * Main constructor with private accessor to prevent instantiating the class.
+     *
+     * @since 1.2.0
+     */
+    private DeviceInfo() {
+        // Nothing to implement here.
+    }
+
+    // =============================================================================================
 
     /**
      * The available memory on the system. This number should not be considered
@@ -58,7 +68,7 @@ public class DeviceInfo {
 
     }
 
-    // =================================================================================================================================
+    // =============================================================================================
 
     /**
      * Notice target API above 16 (Jelly Bean). The total memory accessible by
@@ -81,7 +91,7 @@ public class DeviceInfo {
         return getAvailableRamMemory();
     }
 
-    // =================================================================================================================================
+    // =============================================================================================
 
     /**
      * Notice target API above 16 (Jelly Bean). The memory used by the kernel
@@ -105,7 +115,7 @@ public class DeviceInfo {
         return -1;
     }
 
-    // =================================================================================================================================
+    // =============================================================================================
 
     /**
      * Whether the screen orientation mode is landscape, no matter if the screen
@@ -141,7 +151,7 @@ public class DeviceInfo {
         return isLandscape;
     }
 
-    // =================================================================================================================================
+    // =============================================================================================
 
     /**
      * The device screen orientation in degrees. Could be a value of 0, 90, 180,

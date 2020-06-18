@@ -17,8 +17,9 @@ package com.ntechniks.nstudios.androidutils;
  * this program. If not, see <http://www.gnu.org/licenses/>
  */
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
@@ -28,7 +29,7 @@ import android.util.Log;
  * @since 1.0
  * 
  */
-public class Debug {
+public final class Debug {
 
 	/**
 	 * Show all log messages (the default).
@@ -74,6 +75,15 @@ public class Debug {
 	 * @since 1.03
 	 */
 	private static int sDebugMode = DEBUG_MODE_ALL_ON;
+
+    /**
+     * Main constructor with private accessor to prevent instantiating the class.
+     *
+     * @since 1.2.0
+     */
+    private Debug() {
+        // Nothing to implement here.
+    }
 
 	// =================================================================================================================================
 

@@ -30,9 +30,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.AnyRes;
-import android.support.annotation.NonNull;
 import android.widget.ImageView;
+
+import androidx.annotation.AnyRes;
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 
@@ -43,7 +44,6 @@ import com.bumptech.glide.Glide;
  * @version 1.06
  * @since 1.0
  */
-@SuppressLint("NewApi")
 public class ImageViewUtils {
 
     /**
@@ -52,6 +52,15 @@ public class ImageViewUtils {
      * @since 1.0
      */
     private static final String TAG = "ImageViewUtils";
+
+    /**
+     * Main constructor with private accessor to prevent instantiating the class.
+     *
+     * @since 1.2.0
+     */
+    private ImageViewUtils() {
+        // Nothing to implement here.
+    }
 
     // =================================================================================================================================
 
@@ -131,7 +140,6 @@ public class ImageViewUtils {
                     .thumbnail(0.3F) // Scaled thumbnail for preload.
                     .fitCenter() // Fits the image to fit in the center.
                     .sizeMultiplier(sizeMultiplier) // Scales the loaded image
-                    .crossFade(1) // Time in seconds to cross-fade.
                     .into(view); // The ImageView to load the image to.
 
             // Will set the Tag to be the image path.
@@ -151,6 +159,7 @@ public class ImageViewUtils {
      * @return {@link String}
      * @since 1.0
      */
+    @SuppressLint("NewApi")
     public static String getFilePathByUri(@NonNull Context context, @NonNull Uri uri) {
 
         if (InitCheck.pass(TAG, "getPathByUri", context, uri)) {

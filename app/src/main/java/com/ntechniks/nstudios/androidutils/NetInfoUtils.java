@@ -21,18 +21,29 @@ package com.ntechniks.nstudios.androidutils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
  *
  * @author Nikola Georgiev
- * @version 1.0
- * @since 1.0
+ * @version 1.1
+ * @since 1.0.0
  */
 public class NetInfoUtils {
 
     private static final String TAG = "NetInfoUtils";
+
+    /**
+     * Main constructor with private accessor to prevent instantiating the class.
+     *
+     * @since 1.2.0
+     */
+    private NetInfoUtils() {
+        // Nothing to implement here.
+    }
 
     // =================================================================================================================================
 
@@ -48,21 +59,15 @@ public class NetInfoUtils {
      */
     public static boolean isConnected(@NonNull Context context) {
 
-        String methodName = "isConnected";
-        NetworkInfo network = getNetworkInfo(context);
+        final String methodName = "isConnected";
+        final NetworkInfo network = getNetworkInfo(context);
 
         /*
-        * Will check for NullPointer. The getNetworkInfo() may returns NULL when there
-        * is no default network.
-        */
-        if (Check.notNull(TAG, "network NetworkInfo", methodName, network)) {
-
-            if (network.getState() == NetworkInfo.State.CONNECTED) {
-                return true;
-            }
-        }
-
-        return false;
+         * Will check for NullPointer. The getNetworkInfo() may returns NULL when there
+         * is no default network.
+         */
+        return (Check.notNull(TAG, "network NetworkInfo", methodName, network)
+                && network.getState() == NetworkInfo.State.CONNECTED);
     }
 
     // =================================================================================================================================
@@ -75,27 +80,27 @@ public class NetInfoUtils {
      * is no default network.
      * @since 1.0
      */
+    @Nullable
     public static NetworkInfo getNetworkInfo(@NonNull Context context) {
 
-        String methodName = "getNetworkInfo";
-        NetworkInfo network = null;
+        final String methodName = "getNetworkInfo";
 
         if (Check.notNull(TAG, "context Context", methodName, context)) {
 
-            String connectivity = Context.CONNECTIVITY_SERVICE;
-            ConnectivityManager connectivityMgr = (ConnectivityManager) context.getSystemService(connectivity);
+            final String connectivity = Context.CONNECTIVITY_SERVICE;
+            final ConnectivityManager connectivityMgr =
+                    (ConnectivityManager) context.getSystemService(connectivity);
 
             /*
-            * Will check for NullPointer. The getSystemService() may returns NULL, in case the
-            * service is not presented.
-            */
+             * Will check for NullPointer. The getSystemService() may returns NULL, in case the
+             * service is not presented.
+             */
             if (Check.notNull(TAG, "connectivity ConnectivityManager", methodName, connectivityMgr)) {
 
-                network = connectivityMgr.getActiveNetworkInfo();
+                return connectivityMgr.getActiveNetworkInfo();
             }
         }
-
-        return network;
+        return null;
     }
 
     // =================================================================================================================================
@@ -112,21 +117,14 @@ public class NetInfoUtils {
      */
     public static boolean hasInternetConnection(@NonNull Context context) {
 
-        String methodName = "hasInternetConnection";
-        NetworkInfo network = getNetworkInfo(context);
+        final String methodName = "hasInternetConnection";
+        final NetworkInfo network = getNetworkInfo(context);
 
         /*
-        * Will check for NullPointer. The getNetworkInfo() may returns NULL when there
-        * is no default network.
-        */
-        if (Check.notNull(TAG, "network NetworkInfo", methodName, network)) {
-
-            if (network.isConnected()) {
-                return true;
-            }
-        }
-
-        return false;
+         * Will check for NullPointer. The getNetworkInfo() may returns NULL when there
+         * is no default network.
+         */
+        return (Check.notNull(TAG, "network NetworkInfo", methodName, network) && network.isConnected());
     }
 
     // =================================================================================================================================
@@ -143,20 +141,14 @@ public class NetInfoUtils {
      */
     public static boolean isWiFiConnected(@NonNull Context context) {
 
-        String methodName = "isWiFiConnected";
-        NetworkInfo network = getNetworkInfo(context);
+        final String methodName = "isWiFiConnected";
+        final NetworkInfo network = getNetworkInfo(context);
 
         /*
-        * Will check for NullPointer. The getNetworkInfo() may returns NULL when there
-        * is no default network.
-        */
-        if (Check.notNull(TAG, "network NetworkInfo", methodName, network)) {
-
-            if (network.getType() == ConnectivityManager.TYPE_WIFI) {
-                return true;
-            }
-        }
-
-        return false;
+         * Will check for NullPointer. The getNetworkInfo() may returns NULL when there
+         * is no default network.
+         */
+        return (Check.notNull(TAG, "network NetworkInfo", methodName, network)
+                && network.getType() == ConnectivityManager.TYPE_WIFI);
     }
 }

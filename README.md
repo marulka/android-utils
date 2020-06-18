@@ -1,4 +1,4 @@
-#Android-Utils v1.1.3
+#Android-Utils v1.2.0
 
 Every developer needs a tools set which can saves him a lot of time writing a same code blocks and/or checks on and on. One of the common things that you should do, 
 in case you want to have a fail-safe program, is to check each time you call an objects function for a Null Pointer. The NullPointerException is most common mistake 
@@ -28,7 +28,7 @@ Or Maven:
 <dependency>
   <groupId>com.ntechniks.nstudios</groupId>
   <artifactId>android-utils</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 <dependency>
   <groupId>com.google.android</groupId>
@@ -43,21 +43,24 @@ How to use the adroid-utils?
 Checkout the [documentation.md][2] for pages on a variety of topics, and see the [javadocs][3].
 
 ```java
-import com.ntechniks.nstudios.androidutils.*
+import com.ntechniks.nstudios.androidutils.*;
 ```
 
 Status
 ------
 
-[**Version 1.0**][4] is a stable public release. The library is currently under development on the `master` branch.
+[**Version 1.2.0**][4] is a stable public release. The library is currently under development on 
+the 
+`master` branch.
 
 Comments/bugs/questions/pull requests are always welcome! Please read [contributing.md][5] on how to report issues.
 
 Compatibility
 -------------
 
- * **Android SDK**: Android-Utils requires a minimum API level of 9.
- * **Glide 3.7**: Some of the functions in the library, related with ImageViews are depending on the unofficial Google library Glide. Visit the project [page][6] for more info.
+ * **Android SDK**: Android-Utils requires a minimum API level of 14.
+ * **Glide 4.11**: Some of the functions in the library, related with ImageViews are depending on 
+ the unofficial Google library Glide. Visit the project [page][6] for more info.
  * **Apache Commons-Lang3 3.5**: Some features are using the Apache library. Learn more about this library at the [official page][7].
 
 Build
@@ -107,12 +110,12 @@ GNU General Public License, v3.0. See the [LICENSE][12] file for details.
 [1]: https://github.com/marulka/android-utils/releases
 [2]: https://github.com/marulka/android-utils/blob/master/documentation.md
 [3]: https://marulka.github.io/android-utils/
-[4]: https://github.com/marulka/android-utils/releases/tag/1.0.0
-[5]: https://github.com/marulka/android-utils/blob/1.0.0/contributing.md
+[4]: https://github.com/marulka/android-utils/releases/tag/1.2.0
+[5]: https://github.com/marulka/android-utils/blob/1.2.0/contributing.md
 [6]: https://github.com/bumptech/glide
 [7]: https://commons.apache.org/proper/commons-lang/
 [8]: https://developer.android.com/studio/index.html
 [9]: https://github.com/marulka/android-utils/issues
 [10]: mailto://nikola.georgiev@mail.bg
 [11]: https://developers.google.com/open-source/cla/individual
-[12]: https://github.com/marulka/android-utils/blob/1.0.0/LICENSE
+[12]: https://github.com/marulka/android-utils/blob/1.2.0/LICENSE

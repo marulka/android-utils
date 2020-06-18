@@ -1,3 +1,17 @@
+Android-Utils v1.2.0
+
+- Code cleanup.
+- Added support of Android API29 (Android 10 - Code name "Q").
+- Increased the minimum supported SDK version from 9 to 14.
+- Replaced android.support library with the androidx.
+- Added BigDecimal utility.
+- Announced isNull check.
+- Announced invalidString check.
+- Added File utility.
+- Added Permission utility.
+- Added Resources utility.
+- Satisfying SonarLint warnings.
+
 Android-Utils v1.1.3
 
 - Code cleanup.
@@ -7,12 +21,12 @@ Android-Utils v1.1.3
 Android-Utils v1.1.0
 
 - Added support of Android API26 Alpha (Android 8 - Code name "O").
-- Updated dependancy for the Android Support v4 library.
-- Overrided minSDKversion for the Android Support v4 library.
+- Updated dependency for the Android Support v4 library.
+- Overrides minSDKVersion for the Android Support v4 library.
 - New overloaded buildNeutralOptionsDialog() method in the DialogFactory class.
 - New overloaded buildInfoDialog() method in the DialogFactory class.
 - Marked the comboCheck() method in the InitCheck class as Deprecated.
-- New NetInfoUtils class, which includes the isConneted(), hasInternetConnection(), isWiFiConnected() and getNetworkInfo() methods.
+- New NetInfoUtils class, which includes the isConnected(), hasInternetConnection(), isWiFiConnected() and getNetworkInfo() methods.
 - New buildProgressDialog() method in the DialogFactory class.
 - New instanceOf() method in the Check class.
 - Updated and replaced with gradle dependency some libraries.
@@ -31,4 +45,4 @@ Android-Utils v1.0.1
 - Removed @NonNull annotation to the string parameter e Throwable of he error() method in Debug.class file.
 - Missing null pointer check in the getDataColumn() method of ImageViewUtils class and in the mark() method of WaterMarkerFactory class.
 - Code cleanup.
-- Added compability with Java 8 in the build.gradle file.
+- Added capability with Java 8 in the build.gradle file.

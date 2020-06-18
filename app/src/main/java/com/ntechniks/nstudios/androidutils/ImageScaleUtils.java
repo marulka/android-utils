@@ -22,8 +22,9 @@ import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
+
+import androidx.annotation.NonNull;
 
 /**
  * Official Git repository at https://github.com/marulka/android-utils
@@ -42,6 +43,15 @@ public class ImageScaleUtils {
 	 * @since 1.0
 	 */
 	private static final String TAG = "ImageScaleUtils";
+
+	/**
+	 * Main constructor with private accessor to prevent instantiating the class.
+	 *
+	 * @since 1.2.0
+	 */
+	private ImageScaleUtils() {
+		// Nothing to implement here.
+	}
 
 	// =================================================================================================================================
 
