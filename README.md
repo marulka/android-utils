@@ -17,8 +17,8 @@ repositories {
 }
 
 dependencies {
-  compile 'com.ntechniks.nstudios.android-utils:android-utils:1.1.0'
-  compile 'com.android.support:support-v4:26.0.+'
+  compile 'com.ntechniks.nstudios.android-utils:android-utils:1.2.0'
+  compile 'com.android.support:support-v4:29.0.+'
 }
 ```
 
