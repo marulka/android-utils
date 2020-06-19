@@ -51,12 +51,12 @@ public class ResUtils {
      * @throws FileNotFoundException                           - In case the file was not found.
      * @throws android.content.res.Resources.NotFoundException - In case the resource was not found.
      * @throws IOException                                     - In case there was read/write problem during unpacking.
-     * @throws IllegalArgumentException
+     * @throws IllegalAccessException                          {@link IllegalAccessException} -
      * @since 1.2.0
      */
     public static void unpackZipResourceByName(final Context context, String destFolder,
                                                String resName,
-                                               @Nullable final String permissions) throws IOException {
+                                               @Nullable final String permissions) throws IOException, IllegalAccessException {
 
         final int id = getResIdByName(context, resName, RES_TYPE_RAW);
         unpackZipResource(id, context, destFolder, permissions);
@@ -74,12 +74,12 @@ public class ResUtils {
      * @throws FileNotFoundException                           - In case the file was not found.
      * @throws android.content.res.Resources.NotFoundException - In case the resource was not found.
      * @throws IOException                                     - In case there was read/write problem during unpacking.
-     * @throws IllegalArgumentException
+     * @throws IllegalAccessException                          {@link IllegalAccessException} -
      * @since 1.2.0
      */
     public static void unpackZipResource(final int id, final Context context,
                                          final String destFolder,
-                                         @Nullable final String permissions) throws IOException {
+                                         @Nullable final String permissions) throws IOException, IllegalAccessException {
 
         unpackZipResource(id, context, destFolder, permissions, true);
     }
@@ -98,14 +98,13 @@ public class ResUtils {
      * @throws FileNotFoundException                           - In case the file was not found.
      * @throws android.content.res.Resources.NotFoundException - In case the resource was not found.
      * @throws IOException                                     - In case there was read/write problem during unpacking.
-     * @throws IllegalArgumentException                        - If the {@param context} has Null pointer will throw
-     *                                                         RuntimeException.
+     * @throws IllegalAccessException                          {@link IllegalAccessException} -
      * @since 1.2.0
      */
     public static void unpackZipResource(@RawRes final int id, final Context context,
                                          @Nullable final String destFolder,
                                          @Nullable final String permissions,
-                                         final boolean shouldOverride) throws IOException {
+                                         final boolean shouldOverride) throws IOException, IllegalAccessException {
 
         // Open the ZipInputStream
         final ZipInputStream zip = getZipInputStream(context, id);
@@ -126,15 +125,14 @@ public class ResUtils {
      *                       file or dir with the following permissions attribute.
      * @param shouldOverride {@link boolean} - Should override the destination files if already
      *                       exist.
-     * @throws FileNotFoundException    - In case the file was not found.
-     * @throws IOException              - In case there was read/write problem during unpacking.
-     * @throws IllegalArgumentException - If the {@param context} has Null pointer will throw
-     *                                  RuntimeException.
+     * @throws FileNotFoundException  - In case the file was not found.
+     * @throws IOException            - In case there was read/write problem during unpacking.
+     * @throws IllegalAccessException {@link IllegalAccessException} -
      * @since 1.2.0
      */
     public static void unpackZipFile(@Nullable final String destFolder, final FileInputStream fis,
                                      @Nullable final String permissions,
-                                     final boolean shouldOverride) throws IOException {
+                                     final boolean shouldOverride) throws IOException, IllegalAccessException {
 
         unpackZipFile(destFolder, new ZipInputStream(fis), permissions, shouldOverride);
     }
@@ -149,15 +147,14 @@ public class ResUtils {
      *                       file or dir with the following permissions attribute.
      * @param shouldOverride {@link boolean} - Should override the destination files if already
      *                       exist.
-     * @throws FileNotFoundException    - In case the file was not found.
-     * @throws IOException              - In case there was read/write problem during unpacking.
-     * @throws IllegalArgumentException - If the {@param context} has Null pointer will throw
-     *                                  RuntimeException.
+     * @throws FileNotFoundException  - In case the file was not found.
+     * @throws IOException            - In case there was read/write problem during unpacking.
+     * @throws IllegalAccessException {@link IllegalAccessException} -
      * @since 1.2.0
      */
     public static void unpackZipFile(@Nullable final String destFolder, final ZipInputStream zip,
                                      @Nullable final String permissions,
-                                     final boolean shouldOverride) throws IOException {
+                                     final boolean shouldOverride) throws IOException, IllegalAccessException {
 
         Validate.notNull(zip, "The zip should be valid object.");
 
@@ -235,8 +232,8 @@ public class ResUtils {
      * @param resType {@link String} - Optional default resource type to find, if "type/" is not
      *                included in the name. Can be null to require an explicit type.
      * @return {@link int} - Returns the resource id of the file, associated resource identifier.
-     * Returns 0 if no such resource was found; the {@param context},
-     * {@param resName}, or {@param restype} is invalid. (0 is not a valid
+     * Returns 0 if no such resource was found; the param context,
+     * param resName, or param restype is invalid. (0 is not a valid
      * resource ID.)
      * @since 1.2.0
      */

@@ -124,6 +124,7 @@ public class DeviceInfo {
      * @param context Context - The context which the activity is started in.
      * @throws NullPointerException - In case the Context parameter is NULL, the method will
      *                              throw NullPointerException.
+     * @return {@link boolean}
      * @since 1.0
      */
     public static boolean isLandscapeMode(@NonNull Context context) {

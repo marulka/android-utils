@@ -25,7 +25,7 @@ import java.util.zip.ZipInputStream;
  *
  * @author Nikola Georgiev
  * @version 1.0
- * @since 1.1.3
+ * @since 1.2.0
  */
 public final class FileUtils {
 
@@ -37,7 +37,7 @@ public final class FileUtils {
     /**
      * Main constructor with private accessor to prevent instantiating the class.
      *
-     * @since 1.1.3
+     * @since 1.2.0
      */
     private FileUtils() {
         // Nothing to implement here.
@@ -63,12 +63,13 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     @Nullable
     public static Uri saveInternalFile(final Context context, final InputStream inputStream,
                                        @Nullable final String subDir, final String fileName,
-                                       @Nullable final String permissions) {
+                                       @Nullable final String permissions) throws IllegalAccessException {
 
         if (InitCheck.notPass(TAG, "saveInternalFile", context, inputStream, fileName)) {
             return null;
@@ -92,11 +93,12 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     @Nullable
     public static Uri saveFile(final InputStream inputStream, final File file,
-                               @Nullable final String permissions) {
+                               @Nullable final String permissions) throws IllegalAccessException {
 
         if (InitCheck.notPass(TAG, "saveFile", inputStream, file, permissions)) {
             return null;
@@ -120,11 +122,12 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     @Nullable
     public static Uri saveFile(final InputStream inputStream, final File directory,
-                               final String fileName, final int accessMode) {
+                               final String fileName, final int accessMode) throws IllegalAccessException {
 
         if (InitCheck.notPass(TAG, "saveFile", inputStream, directory, fileName, accessMode)) {
             return null;
@@ -135,7 +138,7 @@ public final class FileUtils {
 
     @Nullable
     private static Uri saveFileImpl(@NonNull final InputStream inputStream, final File file,
-                                    @Nullable final String permissions) {
+                                    @Nullable final String permissions) throws IllegalAccessException {
 
         if (file == null) {
             return null;
@@ -183,11 +186,12 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     @Nullable
     public static Uri saveTempBitmap(final Context context, final Bitmap bitmap,
-                                     @Nullable final String subDir, final String fileName) {
+                                     @Nullable final String subDir, final String fileName) throws IllegalAccessException {
 
         return saveImage(context, bitmap, subDir, fileName);
     }
@@ -204,11 +208,12 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     @Nullable
     public static Uri saveImage(final Context context, final Bitmap bitmap,
-                                @Nullable final String subDir, final String fileName) {
+                                @Nullable final String subDir, final String fileName) throws IllegalAccessException {
 
         if (Check.notNull(TAG, "bitmap", "saveImage", bitmap)) {
             return null;
@@ -228,9 +233,9 @@ public final class FileUtils {
     }
 
     /**
-     * @param file
-     * @throws IOException
-     * @throws IllegalArgumentException
+     * @param file {@link File}
+     * @throws IOException              {@link IOException} -
+     * @throws IllegalArgumentException {@link IllegalArgumentException} -
      */
     public static boolean deleteFileIfExists(@NonNull final File file) throws IOException {
 
@@ -265,10 +270,11 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     public static Uri getTempFileUri(final Context context, @Nullable final String subDir,
-                                     final String fileName) {
+                                     final String fileName) throws IllegalAccessException {
 
         final File tempFile = createTempFile(context, subDir, fileName);
         return (tempFile != null) ? Uri.fromFile(tempFile) : null;
@@ -285,10 +291,11 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     public static Uri getInternalFileUri(final Context context, @Nullable final String subDir,
-                                         final String fileName) {
+                                         final String fileName) throws IllegalAccessException {
 
         final File tempFile = createInternalFile(context, subDir, fileName);
         return (tempFile != null) ? Uri.fromFile(tempFile) : null;
@@ -306,10 +313,11 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     public static File createTempFile(final Context context, @Nullable final String subDir,
-                                      final String fileName) {
+                                      final String fileName) throws IllegalAccessException {
 
         if (InitCheck.notPass(TAG, "createTempFile", context, fileName))
             return null;
@@ -335,10 +343,11 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     public static File createInternalFile(final Context context, @Nullable final File subDir,
-                                          final String fileName) {
+                                          final String fileName) throws IllegalAccessException {
 
         final String dir = (subDir != null) ? subDir.getAbsolutePath() : null;
         return createInternalFile(context, dir, fileName);
@@ -356,10 +365,11 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     public static File createInternalFile(final Context context, @Nullable final String subDir,
-                                          final String fileName) {
+                                          final String fileName) throws IllegalAccessException {
 
         if (InitCheck.notPass(TAG, "createInternalFile", context, fileName))
             return null;
@@ -388,12 +398,12 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @throws IllegalAccessException
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     @Nullable
     public static File createFile(@NonNull final File directory, @NonNull final String fileName,
-                                  @Nullable String permissions) {
+                                  @Nullable String permissions) throws IllegalAccessException {
 
         final File file = (isExistingReadableDir(directory) || createDir(directory, permissions)) ?
                 new File(directory, fileName) : null;
@@ -411,11 +421,11 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @throws IllegalAccessException
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     @Nullable
-    public static File createFile(final File file, @Nullable final String permissions) {
+    public static File createFile(final File file, @Nullable final String permissions) throws IllegalAccessException {
 
         if (Check.notNull(TAG, "file", "createFile", file) && !file.exists()) {
             try {
@@ -437,10 +447,10 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @throws IllegalAccessException
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
-    public static boolean createDir(final String directoryPath, @Nullable String permissions) {
+    public static boolean createDir(final String directoryPath, @Nullable String permissions) throws IllegalAccessException {
 
         return createDir(new File(directoryPath), permissions);
     }
@@ -455,10 +465,10 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @throws IllegalAccessException
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
-    public static boolean createDir(final File directory, @Nullable String permissions) {
+    public static boolean createDir(final File directory, @Nullable String permissions) throws IllegalAccessException {
 
         if (StringUtils.isEmpty(permissions)) {
             permissions = DEFAULT_DIR_PERMISSIONS;
@@ -468,12 +478,12 @@ public final class FileUtils {
 
     /**
      * @param directory  {@link File} - The directory where you'd like to save.
-     * @param accessMode
+     * @param accessMode {@link int} -
      * @return {@link boolean} - Whether the directory has been created or not.
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @since 1.2.0
      */
     public static boolean createDir(final File directory, final int accessMode) {
 
@@ -503,7 +513,7 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @since 1.2.0
      */
     public static boolean isExistingReadableDir(final File directory) {
 
@@ -546,10 +556,11 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @throws IllegalAccessException {@link IllegalAccessException} -
+     * @since 1.2.0
      */
     public static boolean isTempFileExisting(final Context context, final String subDir,
-                                             final String fileName) {
+                                             final String fileName) throws IllegalAccessException {
 
         final File tempFile = createTempFile(context, subDir, fileName);
         return tempFile != null && tempFile.exists();
@@ -564,7 +575,7 @@ public final class FileUtils {
      * @throws AccessControlException - the AccessController to indicate that a requested access
      *                                (to a critical system resource such as the file system or
      *                                the network) is denied.
-     * @since 1.1.3
+     * @since 1.2.0
      */
     public static boolean isInternalStorageWritable(final Context context) {
 
@@ -594,8 +605,8 @@ public final class FileUtils {
      * @param inputStream {@link InputStream} - An input stream to the file, which will be used
      *                    to create {@link ZipInputStream}.
      * @return {@link ZipInputStream} - A new instance to a zip input stream. NULL - in case the
-     * {@param inputStream} has Null Pointer.
-     * @since 1.1.3
+     * param inputStream has Null Pointer.
+     * @since 1.2.0
      */
     public static ZipInputStream createZipInputStream(final InputStream inputStream) {
 
@@ -609,7 +620,7 @@ public final class FileUtils {
      * @param folder
      * @param fileName
      * @return
-     * @since 1.1.3
+     * @since 1.2.0
      */
     public static File changeFilePermissions(final File folder, final String fileName,
                                              final int permission) {
@@ -621,7 +632,7 @@ public final class FileUtils {
      * @param folderPath
      * @param fileName
      * @return
-     * @since 1.1.3
+     * @since 1.2.0
      */
     public static File changeFilePermissions(final String folderPath, final String fileName, final int permission) {
 
@@ -632,7 +643,7 @@ public final class FileUtils {
      * Change files to "0777"
      *
      * @param path Path to file
-     * @since 1.1.3
+     * @since 1.2.0
      */
     public static File changeFilePermissions(final String path, final int permission) throws
             SecurityException {
@@ -644,7 +655,7 @@ public final class FileUtils {
     /**
      * @param file
      * @return
-     * @since 1.1.3
+     * @since 1.2.0
      */
     public static File changeFilePermissions(final File file, final int number) throws
             SecurityException {
@@ -680,7 +691,7 @@ public final class FileUtils {
      * Depends on the Android device API will return the default Uri prefix.
      *
      * @return String - Returns file:// or content://.
-     * @since 1.1.3
+     * @since 1.2.0
      */
     static String getUriPrefix() {
 

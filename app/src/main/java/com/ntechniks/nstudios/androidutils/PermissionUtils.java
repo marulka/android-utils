@@ -120,7 +120,7 @@ public final class PermissionUtils {
     /**
      * @param permissions {@link String}
      * @return {@link int}
-     * @throws NumberFormatException
+     * @throws NumberFormatException {@link NumberFormatException} -
      */
     public static int permissionsToNumber(final String permissions) throws NumberFormatException {
 
